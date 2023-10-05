@@ -26,6 +26,7 @@
       <li>
           <a href="/cart/add?pno=${productDTO.pno}">장바구니 담기</a>
           <a href="/cart/list">장바구니로 이동</a>
+          <a href="/qnaBoard/add?pno=${productDTO.pno}&productName=${productDTO.productName}">상품문의 등록</a>
       </li>
   </ul>
 </body>

@@ -31,7 +31,10 @@ public enum CartService {
 
         CartVO cartVO = modelMapper.map(cartDTO, CartVO.class);
         log.info("cartVO : " + cartVO);
+        String orderId = cartVO.getOrderId();
+        String emailId = cartVO.getEmailId();
 
+        cartDAO.updateOrderId(orderId, emailId);
         cartDAO.insertCart(cartVO);
     }
     public List<CartDTO> getCartByOrderId(String orderId, String emailId) throws SQLException {

@@ -1,17 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 2023-09-28
-  Time: 오후 8:06
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -27,9 +13,9 @@
     <p>비번<input type="password" name="password"></p>
     <input type="checkbox" name="auto">자동 로그인
     <button type="submit">로그인</button>
+    <a href="/addMember">회원가입</a>
 </form>
 </body>
 </html>
 
-</body>
-</html>
+

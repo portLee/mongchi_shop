@@ -21,7 +21,7 @@ public class MemberVO {
     private String address02;
     private String address03;
     private String addDate;
-    private LocalDate birthday;
+    private String birthday;
     private String uuid;
 
 }

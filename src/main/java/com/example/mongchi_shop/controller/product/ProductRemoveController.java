@@ -1,4 +1,4 @@
-package com.example.mongchi_shop.controller;
+package com.example.mongchi_shop.controller.product;
 
 import com.example.mongchi_shop.service.ProductService;
 import lombok.extern.log4j.Log4j2;

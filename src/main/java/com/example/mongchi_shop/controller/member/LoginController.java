@@ -1,4 +1,4 @@
-package com.example.mongchi_shop.controller;
+package com.example.mongchi_shop.controller.member;
 
 import com.example.mongchi_shop.dto.MemberDTO;
 import com.example.mongchi_shop.service.MemberService;

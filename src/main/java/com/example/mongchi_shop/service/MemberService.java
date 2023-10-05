@@ -21,15 +21,17 @@ public enum MemberService {
         modelMapper = MapperUtil.INSTANCE.getInstance();
     }
 
-    public void insertMember (MemberVO memberVO) throws Exception{
+    public void insertMember (MemberDTO memberDTO) throws Exception{
+        MemberVO memberVO = modelMapper.map(memberDTO, MemberVO.class);
         memberDAO.insertMember(memberVO);
     }
-    public void modifyMember (MemberVO memberVO) throws Exception {
+    public void modifyMember (MemberDTO memberDTO) throws Exception {
+        MemberVO memberVO = modelMapper.map(memberDTO, MemberVO.class);
         memberDAO.updateMember(memberVO);
     }
 
     public MemberDTO login(String emailId, String password) throws Exception {
-        MemberVO memberVO=memberDAO.getWithPassword(emailId, password);
+        MemberVO memberVO = memberDAO.getWithPassword(emailId, password);
         MemberDTO memberDTO = modelMapper.map(memberVO, MemberDTO.class);
         log.info(memberDTO + "===memberDTO service ===");
 

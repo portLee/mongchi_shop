@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 
 @Log4j2
 
@@ -23,7 +22,7 @@ public class MemberDAO {
         preparedStatement.setString(2, memberVO.getPassword());
         preparedStatement.setString(3, memberVO.getMemberName());
         preparedStatement.setString(4, memberVO.getPhone());
-        preparedStatement.setString(5, memberVO.getAddDate());
+        preparedStatement.setString(5, memberVO.getBirthday());
         preparedStatement.executeUpdate();
     }
     public MemberVO getWithPassword(String emailId, String password) throws SQLException {
@@ -45,9 +44,8 @@ public class MemberDAO {
                     .zipCode(resultSet.getString("zipCode"))
                     .address01(resultSet.getString("address01"))
                     .address02(resultSet.getString("address02"))
-                    .address03(resultSet.getString("address03"))
                     .uuid(resultSet.getString("uuid"))
-                    .birthday(LocalDate.parse(resultSet.getString("birthday")))
+                    .birthday(resultSet.getString("birthday"))
                     .phone(resultSet.getString("phone"))
                     .build();
         }
@@ -94,7 +92,6 @@ public class MemberDAO {
                     .zipCode(resultSet.getString("zipCode"))
                     .address01(resultSet.getString("address01"))
                     .address02(resultSet.getString("address02"))
-                    .address03(resultSet.getString("address03"))
                     .build();
         }
 

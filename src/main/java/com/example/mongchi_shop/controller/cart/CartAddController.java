@@ -1,7 +1,6 @@
-package com.example.mongchi_shop.controller;
+package com.example.mongchi_shop.controller.cart;
 
 import com.example.mongchi_shop.dto.CartDTO;
-import com.example.mongchi_shop.dto.MemberDTO;
 import com.example.mongchi_shop.service.CartService;
 import lombok.extern.log4j.Log4j2;
 
@@ -12,31 +11,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
 @Log4j2
-@WebServlet("/cart/list")
-public class CartListController extends HttpServlet {
+@WebServlet("/cart/add")
+public class CartAddController extends HttpServlet {
     private final CartService CARTSERVICE = CartService.INSTANCE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("/cart(GET)...");
+        log.info("/cart/add");
 
-        // 주문번호 사용
         HttpSession session = req.getSession();
         String orderId = (String) session.getAttribute("orderId");
-//        MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginInfo");
-//        String emailId = memberDTO.getEmailId();
+        log.info(orderId);
+
+        int pno = Integer.parseInt(req.getParameter("pno"));
+        log.info("pno: " + pno);
 
         try {
-            List<CartDTO> cartDTOList = CARTSERVICE.getCartByOrderId(orderId, "test@naver.com");
-            log.info("cartDTOList: " + cartDTOList);
-            req.setAttribute("cartDTOList", cartDTOList);
-            req.getRequestDispatcher("/WEB-INF/cart/cart.jsp").forward(req, resp);
+            CartDTO cartDTO = CartDTO.builder()
+                    .orderId(orderId)
+                    .emailId("test@naver.com")
+                    .pno(pno)
+                    .build();
+            log.info("cartDTO: " + cartDTO);
+
+            CARTSERVICE.addCart(cartDTO);
         } catch (Exception e) {
             log.info(e.getMessage());
-            throw new ServletException("list error");
+            throw new ServletException("add error");
         }
+
+        resp.sendRedirect("/products/product?pno="+pno);
     }
 }
