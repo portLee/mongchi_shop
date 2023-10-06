@@ -30,7 +30,7 @@ public class CartListController extends HttpServlet {
         try {
             List<CartDTO> cartDTOList = CARTSERVICE.getCartByOrderId(orderId);
             log.info("cartDTOList: " + cartDTOList);
-            req.setAttribute("cartDTOList", cartDTOList);
+            session.setAttribute("cartDTOList", cartDTOList);
             req.getRequestDispatcher("/WEB-INF/order/cart.jsp").forward(req, resp);
         } catch (Exception e) {
             log.info(e.getMessage());
