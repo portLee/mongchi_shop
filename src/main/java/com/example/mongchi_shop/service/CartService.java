@@ -34,10 +34,9 @@ public enum CartService {
 
         cartDAO.insertCart(cartVO);
     }
-    public List<CartDTO> getCartByOrderId(String orderId, String emailId) throws SQLException {
+    public List<CartDTO> getCartByOrderId(String orderId) throws SQLException {
         log.info("getCartByOrderId(String orderId, String emailId)...");
         log.info("orderId : " + orderId);
-        log.info("emailId : " + emailId);
 
         ProductDAO productDAO = new ProductDAO();
         List<CartVO> cartVOList = cartDAO.selectCartByOrderId(orderId);
