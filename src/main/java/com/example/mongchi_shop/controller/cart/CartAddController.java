@@ -1,6 +1,7 @@
 package com.example.mongchi_shop.controller.cart;
 
 import com.example.mongchi_shop.dto.CartDTO;
+import com.example.mongchi_shop.dto.MemberDTO;
 import com.example.mongchi_shop.service.CartService;
 import lombok.extern.log4j.Log4j2;
 
@@ -23,7 +24,8 @@ public class CartAddController extends HttpServlet {
 
         HttpSession session = req.getSession();
         String orderId = (String) session.getAttribute("orderId");
-        log.info(orderId);
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginInfo");
+        String emailId = memberDTO.getEmailId();
 
         int pno = Integer.parseInt(req.getParameter("pno"));
         log.info("pno: " + pno);
@@ -31,7 +33,7 @@ public class CartAddController extends HttpServlet {
         try {
             CartDTO cartDTO = CartDTO.builder()
                     .orderId(orderId)
-                    .emailId("test@naver.com")
+                    .emailId(emailId)
                     .pno(pno)
                     .build();
             log.info("cartDTO: " + cartDTO);

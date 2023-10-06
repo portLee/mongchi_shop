@@ -26,11 +26,11 @@ public class CartListController extends HttpServlet {
         // 주문번호 사용
         HttpSession session = req.getSession();
         String orderId = (String) session.getAttribute("orderId");
-//        MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginInfo");
-//        String emailId = memberDTO.getEmailId();
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginInfo");
+        String emailId = memberDTO.getEmailId();
 
         try {
-            List<CartDTO> cartDTOList = CARTSERVICE.getCartByOrderId(orderId, "test@naver.com");
+            List<CartDTO> cartDTOList = CARTSERVICE.getCartByOrderId(orderId, emailId);
             log.info("cartDTOList: " + cartDTOList);
             req.setAttribute("cartDTOList", cartDTOList);
             req.getRequestDispatcher("/WEB-INF/order/cart.jsp").forward(req, resp);

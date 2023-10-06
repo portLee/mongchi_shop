@@ -31,10 +31,7 @@ public enum CartService {
 
         CartVO cartVO = modelMapper.map(cartDTO, CartVO.class);
         log.info("cartVO : " + cartVO);
-        String orderId = cartVO.getOrderId();
-        String emailId = cartVO.getEmailId();
 
-        cartDAO.updateOrderId(orderId, emailId);
         cartDAO.insertCart(cartVO);
     }
     public List<CartDTO> getCartByOrderId(String orderId, String emailId) throws SQLException {
@@ -43,14 +40,9 @@ public enum CartService {
         log.info("emailId : " + emailId);
 
         ProductDAO productDAO = new ProductDAO();
-
         List<CartVO> cartVOList = cartDAO.selectCartByOrderId(orderId);
-        if (cartVOList.size() == 0) {
-            cartDAO.updateOrderId(orderId, emailId);
-            cartVOList = cartDAO.selectCartByOrderId(orderId);
-        }
-
         List<CartDTO> cartDTOList = new ArrayList<>();
+
         for (CartVO cartVO : cartVOList) {
             ProductVO productVO = productDAO.selectProductByPno(cartVO.getPno());
             ProductDTO productDTO = modelMapper.map(productVO, ProductDTO.class);
@@ -73,5 +65,12 @@ public enum CartService {
         for (int cno : cnos) {
             cartDAO.deleteCart(cno);
         }
+    }
+
+    public void modifyOrderId(String orderId, String emailId) throws SQLException {
+        log.info("modifyOrderId(String orderId)...");
+        log.info("orderId: " + orderId);
+
+        cartDAO.updateOrderId(orderId, emailId);
     }
 }
