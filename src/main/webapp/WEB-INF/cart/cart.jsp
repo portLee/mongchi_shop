@@ -23,12 +23,50 @@
         <form action="#" name="frmCart" method="get">
             <c:forEach var="cart" items="<%= cartDTOList %>">
                 <li>
+                    <input type="hidden" name="cno" value="${cart.cno}">
                     <span><input type="checkbox" name="check" value="${cart.cno}"></span>
                     <span>${cart}</span>
+                    <span data-pnm="plus" class="cntBtn">+</span>
+                    <span class="cnt">${cart.cnt}</span>
+                    <span data-pnm="minus" class="cntBtn">-</span>
                 </li>
             </c:forEach>
         </form>
     </ul>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $('.cntBtn').click(function () {
+            let pnm = $(this).data("pnm");
+            let cnt = $(this).siblings(".cnt");
+            let cno = $(this).siblings("input[name=cno]").val();
+            console.log('cno: ' + cno, 'cnt: ' + cnt.text(), 'pnm: ' + pnm);
+
+            // AJAX 요청 보내기
+            $.ajax({
+                url: "/cart/modify",
+                method: "POST",
+                data: {
+                    cno: cno,
+                    cnt: cnt.text(),
+                    pnm: pnm
+                },
+                success: function (response) {
+                    // 업데이트 성공
+                    if (pnm === "plus") {
+                        cnt.text(parseInt(cnt.text()) + 1);
+                    }
+                    else {
+                        cnt.text(parseInt(cnt.text()) - 1);
+                    }
+                    console.log("수량 업데이트 성공: " + response.message);
+                },
+                error: function (xhr, status, error) {
+                    console.error("수량 업데이트 실패: " + error);
+                }
+            });
+        })
+    </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

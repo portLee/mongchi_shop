@@ -72,4 +72,9 @@ public enum CartService {
 
         cartDAO.updateOrderId(orderId, emailId);
     }
+
+    public boolean modifyCnt(int cno, int cnt) throws SQLException {
+        boolean isUpdate = cartDAO.updateCnt(cno, cnt);
+        return isUpdate;
+    }
 }
