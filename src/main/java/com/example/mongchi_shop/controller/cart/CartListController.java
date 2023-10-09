@@ -17,7 +17,7 @@ import java.util.List;
 @Log4j2
 @WebServlet("/cart/list")
 public class CartListController extends HttpServlet {
-    private final CartService CARTSERVICE = CartService.INSTANCE;
+    private final CartService CART_SERVICE = CartService.INSTANCE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,10 +28,10 @@ public class CartListController extends HttpServlet {
         String orderId = (String) session.getAttribute("orderId");
 
         try {
-            List<CartDTO> cartDTOList = CARTSERVICE.getCartByOrderId(orderId);
+            List<CartDTO> cartDTOList = CART_SERVICE.getCartByOrderId(orderId);
             log.info("cartDTOList: " + cartDTOList);
             session.setAttribute("cartDTOList", cartDTOList);
-            req.getRequestDispatcher("/WEB-INF/order/cart.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/cart/cart.jsp").forward(req, resp);
         } catch (Exception e) {
             log.info(e.getMessage());
             throw new ServletException("list error");

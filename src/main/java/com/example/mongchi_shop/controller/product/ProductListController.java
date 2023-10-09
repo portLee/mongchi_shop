@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet("/products")
 public class ProductListController extends HttpServlet {
     static final int ROW_PER_PAGE = 10; // 페이지당 게시물 숫자
-    private final ProductService PRODUCTSERVICE = ProductService.INSTANCE;
+    private final ProductService PRODUCT_SERVICE = ProductService.INSTANCE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
@@ -29,8 +29,8 @@ public class ProductListController extends HttpServlet {
         }
 
         try {
-            int totalRecord = PRODUCTSERVICE.getAllProductCount(); // 전체 게시물 수
-            List<ProductDTO> productDTOList = PRODUCTSERVICE.getAllProduct(currentPage, limit);
+            int totalRecord = PRODUCT_SERVICE.getAllProductCount(); // 전체 게시물 수
+            List<ProductDTO> productDTOList = PRODUCT_SERVICE.getAllProduct(currentPage, limit);
 
             int totalPage; // 전체 페이지 계산
             if (totalRecord % limit == 0) {

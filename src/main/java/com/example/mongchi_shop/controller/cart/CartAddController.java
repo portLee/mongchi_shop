@@ -16,7 +16,7 @@ import java.io.IOException;
 @Log4j2
 @WebServlet("/cart/add")
 public class CartAddController extends HttpServlet {
-    private final CartService CARTSERVICE = CartService.INSTANCE;
+    private final CartService CART_SERVICE = CartService.INSTANCE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,7 +38,7 @@ public class CartAddController extends HttpServlet {
                     .build();
             log.info("cartDTO: " + cartDTO);
 
-            CARTSERVICE.addCart(cartDTO);
+            CART_SERVICE.addCart(cartDTO);
         } catch (Exception e) {
             log.info(e.getMessage());
             throw new ServletException("add error");

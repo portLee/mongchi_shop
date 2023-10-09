@@ -91,4 +91,14 @@ public class CartDAO {
         preparedStatement.setInt(1, cno);
         preparedStatement.executeUpdate();
     }
+
+    public void updateCnt(int cno, int cnt) throws SQLException {
+        // 전달받은 cnt 업데이트
+        String sql = "update cart set cnt = ? where cno = ?";
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, cnt);
+        preparedStatement.setInt(2, cno);
+        preparedStatement.executeUpdate();
+    }
 }
