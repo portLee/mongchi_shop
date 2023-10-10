@@ -4,6 +4,7 @@ import com.example.mongchi_shop.dto.CartDTO;
 import com.example.mongchi_shop.dto.MemberDTO;
 import com.example.mongchi_shop.service.CartService;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +20,8 @@ public class CartAddController extends HttpServlet {
     private final CartService CART_SERVICE = CartService.INSTANCE;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("/cart/add");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("/cart/add(POST)...");
 
         HttpSession session = req.getSession();
         String orderId = (String) session.getAttribute("orderId");
@@ -30,12 +31,11 @@ public class CartAddController extends HttpServlet {
         int pno = Integer.parseInt(req.getParameter("pno"));
         log.info("pno: " + pno);
 
+        CartDTO cartDTO = new CartDTO();
         try {
-            CartDTO cartDTO = CartDTO.builder()
-                    .orderId(orderId)
-                    .emailId(emailId)
-                    .pno(pno)
-                    .build();
+            BeanUtils.populate(cartDTO, req.getParameterMap());
+            cartDTO.setOrderId(orderId);
+            cartDTO.setEmailId(emailId);
             log.info("cartDTO: " + cartDTO);
 
             CART_SERVICE.addCart(cartDTO);

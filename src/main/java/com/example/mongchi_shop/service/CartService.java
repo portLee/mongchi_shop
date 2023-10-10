@@ -38,19 +38,13 @@ public enum CartService {
         log.info("getCartByOrderId(String orderId, String emailId)...");
         log.info("orderId : " + orderId);
 
-        ProductDAO productDAO = new ProductDAO();
         List<CartVO> cartVOList = cartDAO.selectCartByOrderId(orderId);
         List<CartDTO> cartDTOList = new ArrayList<>();
 
         for (CartVO cartVO : cartVOList) {
-            ProductVO productVO = productDAO.selectProductByPno(cartVO.getPno());
-            ProductDTO productDTO = modelMapper.map(productVO, ProductDTO.class);
-            log.info("productDTO: " + productDTO);
             CartDTO cartDTO = modelMapper.map(cartVO, CartDTO.class);
             log.info("cartDTO: " + cartDTO);
 
-            cartDTO.setProductDTO(productDTO);
-            log.info("cartDTO(set): " + cartDTO);
             cartDTOList.add(cartDTO);
         }
 

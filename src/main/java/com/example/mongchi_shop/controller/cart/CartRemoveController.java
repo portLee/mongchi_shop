@@ -18,7 +18,7 @@ public class CartRemoveController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("/cart/remove(GET)...");
-        String[] checks = req.getParameterValues("check");
+        String[] checks = req.getParameterValues("checks");
         int[] cnos = new int[checks.length];
 
         for (int i = 0; i < checks.length; i++) {

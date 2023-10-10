@@ -1,7 +1,6 @@
 <%@ page import="com.example.mongchi_shop.dto.CartDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.mongchi_shop.dto.MemberDTO" %>
-<%@ page import="com.example.mongchi_shop.dto.ProductDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <%
@@ -10,9 +9,9 @@
 	String orderId = (String) session.getAttribute("orderId");
 	int totalAmount = 0;
 
-	for (CartDTO cartDTO : cartDTOList) {
-		ProductDTO productDTO = cartDTO.getProductDTO();
-		totalAmount += productDTO.getUnitPrice();
+	for (CartDTO cartDTO : cartDTOList) {;
+		totalAmount += (cartDTO.getUnitPrice() * cartDTO.getCnt());
+		System.out.println(cartDTO.getCnt());
 	}
 %>
 <!DOCTYPE html>
