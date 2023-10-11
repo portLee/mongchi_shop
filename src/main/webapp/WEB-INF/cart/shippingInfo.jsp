@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.example.mongchi_shop.dto.CartDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.mongchi_shop.dto.MemberDTO" %>
@@ -7,74 +8,135 @@
 	List<CartDTO> cartDTOList = (List<CartDTO>) session.getAttribute("cartDTOList");
 	MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginInfo");
 	String orderId = (String) session.getAttribute("orderId");
-	int totalAmount = 0;
-
-	for (CartDTO cartDTO : cartDTOList) {;
-		totalAmount += (cartDTO.getUnitPrice() * cartDTO.getCnt());
-		System.out.println(cartDTO.getCnt());
-	}
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<title>주문 정보</title>
 </head>
 <body>
-	<div class="jumbotron">
+	<!-- Navigation Bar -->
+	<jsp:include page="/WEB-INF/inc/menu.jsp" />
+
+	<!-- Start Hero Section -->
+	<div class="hero">
 		<div class="container">
-			<h1 class="display-3">배송 정보</h1>
+			<div class="row justify-content-between">
+				<div class="col-lg-5">
+					<div class="intro-excerpt">
+						<h1>주문 정보</h1>
+					</div>
+				</div>
+				<div class="col-lg-7">
+
+				</div>
+			</div>
 		</div>
 	</div>
-	
-	<div class="container">
-		<form action="/shippingInfo" method="post">
-			<input type="hidden" name="orderId" value="<%= orderId %>">
-			<input type="hidden" name="emailId" value="<%= memberDTO.getEmailId() %>">
-			<input type="hidden" name="totalAmount" value="<%= totalAmount %>">
-			<input type="hidden" name="orderStatus" value="주문완료">
-			<div class="form-group row">
-				<label class="col-sm-2">주문자 이름</label>
-				<div class="col-sm-3">
-					<input type="text" name="orderName" class="form-control" value="<%= memberDTO.getMemberName() %>">
+	<!-- End Hero Section -->
+
+	<div class="untree_co-section">
+		<div class="container">
+			<form action="/shippingInfo" method="post">
+				<div class="row">
+					<div class="col-md-6 mb-5 mb-md-0">
+						<h2 class="h3 mb-3 text-black">배송지 정보</h2>
+						<div class="p-3 p-lg-5 border bg-white">
+							<div class="form-group row">
+								<div class="col-md-12">
+									<label for="orderName" class="text-black">주문자 이름 <span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="orderName" name="orderName" value="<%= memberDTO.getMemberName() %>">
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-md-6">
+									<label for="zipCode" class="text-black">우편번호 <span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="zipCode" name="zipCode" value="<%= memberDTO.getZipCode() != null ? memberDTO.getZipCode() : "" %>" readonly>
+								</div>
+								<div class="col-md-6">
+									<button class="btn btn-secondary btnFindZipcode" type="button" style="cursor:pointer; margin-top: 28px;">우편번호검색</button>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-md-12">
+									<label for="address01" class="text-black">주소 <span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="address01" name="address01"
+										   value="<%= memberDTO.getAddress01() != null ? memberDTO.getAddress01() : "" %>" placeholder="" readonly>
+								</div>
+							</div>
+
+							<div class="form-group mt-3">
+								<input type="text" class="form-control" name="address02"
+									   value="<%= memberDTO.getAddress02() != null ? memberDTO.getAddress02() : "" %>" placeholder="상세주소 입력">
+							</div>
+
+							<div class="form-group row mb-5">
+								<div class="col-md-12">
+									<label for="phone" class="text-black">연락처 <span class="text-danger">*</span></label>
+									<input type="text" class="form-control" id="phone" name="phone"
+										   value="<%= memberDTO.getPhone() %>" placeholder="ex) 010-1234-5678">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label for="order_notes" class="text-black">Order Notes</label>
+								<textarea name="order_notes" id="order_notes" cols="30" rows="5" class="form-control" placeholder="Write your notes here..."></textarea>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-md-6">
+
+						<div class="row mb-5">
+							<div class="col-md-12">
+								<h2 class="h3 mb-3 text-black">주문 정보</h2>
+								<div class="p-3 p-lg-5 border bg-white">
+									<table class="table site-block-order-table mb-5">
+										<thead>
+											<th>Product</th>
+											<th>Total</th>
+										</thead>
+										<tbody>
+											<%
+												int totalAmount = 0;
+												for (CartDTO cart : cartDTOList) {;
+													int price = cart.getUnitPrice() * cart.getCnt();
+													totalAmount += price;
+											%>
+											<tr>
+												<td><%= cart.getProductName() %> <strong class="mx-2">x</strong> <%= cart.getCnt() %></td>
+												<td><%= price %>원</td>
+											</tr>
+											<%
+												}
+											%>
+										<tr>
+											<td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+											<td class="text-black font-weight-bold"><strong><%= totalAmount %>원</strong></td>
+										</tr>
+										</tbody>
+									</table>
+
+									<div class="form-group">
+										<button class="btn btn-black btn-lg py-3 btn-block" type="submit">주문하기</button>
+									</div>
+
+									<input type="hidden" name="orderId" value="<%= orderId %>">
+									<input type="hidden" name="emailId" value="<%= memberDTO.getEmailId() %>">
+									<input type="hidden" name="totalAmount" value="<%= totalAmount %>">
+									<input type="hidden" name="orderStatus" value="주문완료">
+
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="form-group row">
-				<label class="col-sm-2">연락처</label>
-				<div class="col-sm-3">
-					<input type="text" name="tel" class="form-control" value="<%= memberDTO.getPhone() %>">
-				</div>
-			</div>
-			<div class="form-group row">
-				<label class="col-sm-2">우편번호</label>
-				<div class="col-sm-3">
-					<input type="text" name="zipCode" class="form-control"
-						   value="<%= memberDTO.getZipCode() != null ? memberDTO.getZipCode() : "" %>" readonly>
-					<span class="btn btn-secondary btnFindZipcode" style="cursor:pointer;">우편번호 검색</span> <br>
-				</div>
-			</div>
-			<div class="form-group  row ">
-				<label class="col-sm-2">주소 1</label>
-				<div class="col-sm-3">
-					<input type="text" name="address01" class="form-control"
-						   value="<%= memberDTO.getAddress01() != null ? memberDTO.getAddress01() : "" %>" readonly>
-				</div>
-			</div>
-			<div class="form-group  row ">
-				<label class="col-sm-2">주소 2</label>
-				<div class="col-sm-3">
-					<input type="text" name="address02" class="form-control"
-						   value="<%= memberDTO.getAddress02() != null ? memberDTO.getAddress02() : "" %>">
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-sm-10">
-				<a href="./cart.jsp" class="btn btn-secondary" role="button">이전</a>
-					<input type="submit" class="btn btn-primary" value="주문하기">
-				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 
 	<!-- 다음 주소 검색 api -->

@@ -14,18 +14,19 @@ public class OrderDAO {
 
     // 주문 생성
     public boolean insertOrder(OrderVO orderVO) throws SQLException {
-        String sql = "INSERT INTO orders (orderId, emailId, orderName, orderDate, totalAmount, zipCode, address01, address02, orderStatus)" +
-                " VALUES (?, ?, ?, now(), ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO orders (orderId, emailId, orderName, orderDate, totalAmount, phone, zipCode, address01, address02, orderStatus)" +
+                " VALUES (?, ?, ?, now(), ?, ?, ?, ?, ?, ?)";
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, orderVO.getOrderId());
         preparedStatement.setString(2, orderVO.getEmailId());
         preparedStatement.setString(3, orderVO.getOrderName());
         preparedStatement.setInt(4, orderVO.getTotalAmount());
-        preparedStatement.setString(5, orderVO.getZipCode());
-        preparedStatement.setString(6, orderVO.getAddress01());
-        preparedStatement.setString(7, orderVO.getAddress02());
-        preparedStatement.setString(8, orderVO.getOrderStatus());
+        preparedStatement.setString(5, orderVO.getPhone());
+        preparedStatement.setString(6, orderVO.getZipCode());
+        preparedStatement.setString(7, orderVO.getAddress01());
+        preparedStatement.setString(8, orderVO.getAddress02());
+        preparedStatement.setString(9, orderVO.getOrderStatus());
         int rowsAffected = preparedStatement.executeUpdate();
         return rowsAffected > 0;
     }
@@ -44,6 +45,7 @@ public class OrderDAO {
                     .emailId(resultSet.getString("emailId"))
                     .orderDate(resultSet.getString("orderDate"))
                     .totalAmount(resultSet.getInt("totalAmount"))
+                    .phone(resultSet.getString("phone"))
                     .zipCode(resultSet.getString("zipCode"))
                     .address01(resultSet.getString("address01"))
                     .address02(resultSet.getString("address02"))
@@ -69,6 +71,7 @@ public class OrderDAO {
                     .emailId(resultSet.getString("emailId"))
                     .orderDate(resultSet.getString("orderDate"))
                     .totalAmount(resultSet.getInt("totalAmount"))
+                    .phone(resultSet.getString("phone"))
                     .zipCode(resultSet.getString("zipCode"))
                     .address01(resultSet.getString("address01"))
                     .address02(resultSet.getString("address02"))

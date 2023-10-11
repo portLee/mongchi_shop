@@ -1,34 +1,39 @@
 <%@ page import="com.example.mongchi_shop.dto.CartDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.example.mongchi_shop.dto.ProductDTO" %><%--
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    List<CartDTO> cartDTOList = (List<CartDTO>) session.getAttribute("cartDTOList");
+%>
+<%--
   Created by IntelliJ IDEA.
   User: 이헌구
   Date: 2023-10-03
   Time: 오후 4:35
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    List<CartDTO> cartDTOList = (List<CartDTO>) session.getAttribute("cartDTOList");
-%>
+<!-- /*
+* Bootstrap 5
+* Template Name: Furni
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
 <html>
 <head>
-    <!-- Bootstrap CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="/css/tiny-slider.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
     <title>장바구니</title>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <jsp:include page="/WEB-INF/inc/menu.jsp" />
+
     <!-- Start Hero Section -->
     <div class="hero">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-lg-5">
                     <div class="intro-excerpt">
-                        <h1>Cart</h1>
+                        <h1>장바구니</h1>
                     </div>
                 </div>
                 <div class="col-lg-7">
@@ -101,10 +106,11 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="row mb-5">
-                        <div class="col-md-6 mb-3 mb-md-0">
-                            <button id="btn-selected" class="btn btn-black btn-sm btn-block">선택삭제</button>
-                        </div>
-                        <div class="col-md-6">
+<%--                        <div class="col-md-6 mb-3 mb-md-0">--%>
+<%--                            <button id="btn-selected" class="btn btn-black btn-sm btn-block">선택삭제</button>--%>
+<%--                        </div>--%>
+                        <div class="col-md-10">
+                            <button id="btn-selected" class="btn btn-black btn-sm btn-block" style="margin-right: 10px;">선택삭제</button>
                             <button id="btn-products" class="btn btn-outline-black btn-sm btn-block">쇼핑목록</button>
                         </div>
                     </div>
@@ -114,7 +120,7 @@
                         <div class="col-md-7">
                             <div class="row">
                                 <div class="col-md-12 text-right border-bottom mb-5">
-                                    <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                                    <h3 class="text-black h4 text-uppercase">총 주문금액</h3>
                                 </div>
                             </div>
 

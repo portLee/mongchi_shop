@@ -43,7 +43,7 @@ public class ProductRegisterController extends HttpServlet {
             log.info("productDTO: " + productDTO);
 
             // 이미지 파일 이름을 News 객체에 저장.
-            productDTO.setFileName("/upload/" + fileName);
+            productDTO.setFileName("/upload/product" + fileName);
 
             PRODUCT_SERVICE.registerProduct(productDTO);
         } catch (Exception e) {

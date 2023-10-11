@@ -14,6 +14,7 @@ public class OrderVO {
     private String orderName; // 주문자이름
     private String orderDate; // 주문날짜
     private int totalAmount; // 주문 금액
+    private String phone; // 연락처
     private String zipCode; // 우편번호
     private String address01; // 주소1
     private String address02; // 주소2

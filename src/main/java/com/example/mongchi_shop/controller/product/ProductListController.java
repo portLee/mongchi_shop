@@ -15,7 +15,7 @@ import java.util.List;
 @Log4j2
 @WebServlet("/products")
 public class ProductListController extends HttpServlet {
-    static final int ROW_PER_PAGE = 10; // 페이지당 게시물 숫자
+    static final int ROW_PER_PAGE = 8; // 페이지당 게시물 숫자
     private final ProductService PRODUCT_SERVICE = ProductService.INSTANCE;
 
     @Override

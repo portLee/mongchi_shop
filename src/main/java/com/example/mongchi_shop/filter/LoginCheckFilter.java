@@ -13,10 +13,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Log4j2
-@WebFilter(urlPatterns = {"/modify"})
+@WebFilter(urlPatterns = {"/qnaBoards/*, /products/*, /members/*, /cart, /reviews/*, /admin"})
 public class LoginCheckFilter implements Filter {
-
-
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         log.info("Login Check Filter");

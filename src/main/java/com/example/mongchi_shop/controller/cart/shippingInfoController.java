@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 @Log4j2
@@ -39,6 +38,7 @@ public class shippingInfoController extends HttpServlet {
         log.info("/shippingInfo(POST)...");
         HttpSession session = req.getSession();
         List<CartDTO> cartDTOList = (List<CartDTO>) session.getAttribute("cartDTOList");
+        String orderId = (String) session.getAttribute("orderId");
 
         OrderDTO orderDTO = new OrderDTO();
         try {
@@ -53,9 +53,10 @@ public class shippingInfoController extends HttpServlet {
                     cnos[i++] = cartDTO.getCno();
                 }
 
+                req.setAttribute("orderId", orderId);
                 session.removeAttribute("cartDTOList");
+                session.removeAttribute("orderId");
                 CART_SERVICE.removeCart(cnos);
-                // 주문번호도 세션에서 삭제해야하나?
             }
 
             req.getRequestDispatcher("/WEB-INF/cart/thankCustomer.jsp").forward(req, resp);
