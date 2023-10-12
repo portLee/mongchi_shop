@@ -25,6 +25,7 @@ public class ProductViewController extends HttpServlet {
 
         try {
             ProductDTO productDTO = PRODUCT_SERVICE.getProductByPno(pno);
+
             req.setAttribute("productDTO", productDTO);
             req.getRequestDispatcher("/WEB-INF/product/view.jsp").forward(req, resp);
         } catch (Exception e) {

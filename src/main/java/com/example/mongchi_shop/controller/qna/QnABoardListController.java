@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Log4j2
-@WebServlet("/qnaBoard/qnaList")
+@WebServlet("/qnaBoards")
 public class QnABoardListController extends HttpServlet {
 
     final int ROW_PER_PAGE = 10; // 페이지에 보일 주문 개수

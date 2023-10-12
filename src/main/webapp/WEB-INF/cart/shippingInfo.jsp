@@ -38,7 +38,7 @@
 
 	<div class="untree_co-section">
 		<div class="container">
-			<form action="/shippingInfo" method="post">
+			<form action="/cart/shippingInfo" method="post">
 				<div class="row">
 					<div class="col-md-6 mb-5 mb-md-0">
 						<h2 class="h3 mb-3 text-black">배송지 정보</h2>

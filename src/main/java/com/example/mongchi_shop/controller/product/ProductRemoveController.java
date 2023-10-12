@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet("/admin/products/remove")
+@WebServlet("/admin/product/remove")
 public class ProductRemoveController extends HttpServlet {
     private final ProductService PRODUCT_SERVICE = ProductService.INSTANCE;
     @Override
@@ -26,6 +26,6 @@ public class ProductRemoveController extends HttpServlet {
             log.error(e.getMessage());
             throw new ServletException("remove error");
         }
-        resp.sendRedirect("/admin/products");
+        resp.sendRedirect("/products");
     }
 }

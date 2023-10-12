@@ -22,23 +22,23 @@ public class CartDAO {
         @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
-            sql = "update cart set cnt = cnt + 1 where cno = ?";
+            sql = "update cart set cnt = cnt + ? where cno = ?";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, resultSet.getInt("cno"));
+            preparedStatement.setInt(1, cartVO.getCnt());
+            preparedStatement.setInt(2, resultSet.getInt("cno"));
             preparedStatement.executeUpdate();
         }
         else {
             String emailId = cartVO.getEmailId();
             emailId = emailId == null ? "Guest" : emailId;
 
-            int cnt = 1;
             sql = "insert into cart (orderId, emailId, cnt, addDate, pno, productName, unitPrice, fileName)" +
                     " values (?, ?, ?, now(), ?, ?, ?, ?)";
 
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, cartVO.getOrderId());
             preparedStatement.setString(2, emailId);
-            preparedStatement.setInt(3, cnt);
+            preparedStatement.setInt(3, cartVO.getCnt());
             preparedStatement.setInt(4, cartVO.getPno());
             preparedStatement.setString(5, cartVO.getProductName());
             preparedStatement.setInt(6, cartVO.getUnitPrice());

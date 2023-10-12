@@ -7,8 +7,6 @@
 <link href="/css/tiny-slider.css" rel="stylesheet">
 <link href="/css/style.css" rel="stylesheet">
 
-<%--<script src="https://kit.fontawesome.com/dc88001a08.js" crossorigin="anonymous"></script>--%>
-
 <%
     MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginInfo");
     String emailId = null;

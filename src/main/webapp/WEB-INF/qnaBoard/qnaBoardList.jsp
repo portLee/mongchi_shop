@@ -1,4 +1,6 @@
 <%@ page import="java.util.List" %>
+<%@ page import="com.example.mongchi_shop.dto.QnABoardDTO" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -11,7 +13,7 @@
 </head>
 <body>
 <%
-  List qnABoardDTOList=(List) request.getAttribute("qnABoardDTOList");
+  List<QnABoardDTO> qnABoardDTOList=(List<QnABoardDTO>) request.getAttribute("qnABoardDTOList");
   int currentPage=(Integer) request.getAttribute("currentPage");
   int totalPage=(Integer) request.getAttribute("totalPage");
 
@@ -23,6 +25,10 @@
   lastPage=(lastPage>totalPage)?totalPage:lastPage;
 
   String emailId="d";
+
+  for (QnABoardDTO qnABoardDTO : qnABoardDTOList) {
+
+  }
 
 
 //  MemberDTO memberDTO=session.getAttribute("loginInfo");

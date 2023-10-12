@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Log4j2
-@WebServlet("/shippingInfo")
+@WebServlet("/cart/shippingInfo")
 public class shippingInfoController extends HttpServlet {
     private final OrderService ORDER_SERVICE = OrderService.INSTANCE;
     private final CartService CART_SERVICE = CartService.INSTANCE;

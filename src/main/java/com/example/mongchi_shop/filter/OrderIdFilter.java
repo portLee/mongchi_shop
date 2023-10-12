@@ -21,10 +21,10 @@ public class OrderIdFilter implements Filter {
 
         // 주문번호 생성 및 사용
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse resp = (HttpServletResponse) response;
 
         HttpSession session = req.getSession();
         String orderId = (String) session.getAttribute("orderId");
+        log.info("orderId: " + orderId);
 
         if (orderId == null) {
             // 세션 ID 가져오기
@@ -36,6 +36,7 @@ public class OrderIdFilter implements Filter {
 
             orderId = currentDateTime + "-" + sessionId;
             session.setAttribute("orderId", orderId);
+            log.info("create orderId: " + orderId);
 
             MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginInfo");
             String emailId = memberDTO.getEmailId();

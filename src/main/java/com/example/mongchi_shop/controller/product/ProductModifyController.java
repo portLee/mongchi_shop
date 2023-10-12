@@ -15,7 +15,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet("/admin/products/modify")
+@WebServlet("/admin/product/modify")
 @MultipartConfig(maxFileSize = 5 * 1024 * 1024, location = "c:/upload")
 public class ProductModifyController extends HttpServlet {
     private final ProductService PRODUCT_SERVICE = ProductService.INSTANCE;
@@ -64,7 +64,7 @@ public class ProductModifyController extends HttpServlet {
             throw new ServletException("modify error");
         }
 
-        resp.sendRedirect("/admin/products");
+        resp.sendRedirect("/products/product?pno=" + productDTO.getPno());
     }
 
 }
