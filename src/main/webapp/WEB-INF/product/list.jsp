@@ -83,7 +83,11 @@
     document.addEventListener('DOMContentLoaded', function () {
         const navItems = document.querySelectorAll('.nav-item a');
         const ACTIVE_CLASSNAME = 'active';
-        const param = searchParam('sort');
+        const sort = searchParam('sort');
+
+        for (const item of navItems) {
+            console.log(item.getAttribute('href'));
+        }
 
         function searchParam(key) {
             return new URLSearchParams(location.search).get(key);
