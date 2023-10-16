@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDAO {
-    public List<ProductVO> selectAllProduct(int currentPage, int limit) throws SQLException {
+    public List<ProductVO> selectAllProduct(String field, String option, int currentPage, int limit) throws SQLException {
 
         int beginRow = (currentPage - 1) * limit;
-        String sql = "select * from product order by pno desc limit ?, ?";
+        String sql = "select * from product order by " + field + " " + option + " limit ?, ?";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);

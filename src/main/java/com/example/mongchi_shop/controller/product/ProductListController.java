@@ -16,7 +16,7 @@ import java.util.List;
 @WebServlet("/products")
 public class ProductListController extends HttpServlet {
     static final int ROW_PER_PAGE = 8; // 페이지당 게시물 숫자
-    private final ProductService PRODUCT_SERVICE = ProductService.INSTANCE;
+    private final ProductService productService = ProductService.INSTANCE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
@@ -24,13 +24,26 @@ public class ProductListController extends HttpServlet {
 
         int currentPage = 1; // 페이지 번호의 기본 값
         int limit = ROW_PER_PAGE; // 페이지당 게시물 수
+        String sort = req.getParameter("sort"); // 정렬 기준
+        String option = "desc";
+        log.info("sort: " + sort);
+        log.info("option: " + option);
+
+        // sort 값이 null이 아니면 해당 필드명을 전달.
+        String field = (sort != null) ? SortBy.valueOf(sort).getField() : "pno";
+        log.info("field: " + field);
+
+        if (req.getParameter("option") != null) {
+            option = req.getParameter("option");
+        }
+
         if (req.getParameter("currentPage") != null) {
             currentPage = Integer.parseInt(req.getParameter("currentPage"));
         }
 
         try {
-            int totalRecord = PRODUCT_SERVICE.getAllProductCount(); // 전체 게시물 수
-            List<ProductDTO> productDTOList = PRODUCT_SERVICE.getAllProduct(currentPage, limit);
+            int totalRecord = productService.getAllProductCount(); // 전체 게시물 수
+            List<ProductDTO> productDTOList = productService.getAllProduct(field, option, currentPage, limit);
 
             int totalPage; // 전체 페이지 계산
             if (totalRecord % limit == 0) {

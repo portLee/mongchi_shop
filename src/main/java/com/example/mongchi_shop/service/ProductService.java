@@ -31,8 +31,8 @@ public enum ProductService {
         return count;
     }
 
-    public List<ProductDTO> getAllProduct(int currentPage, int limit) throws SQLException {
-        List<ProductVO> productVOList = productDAO.selectAllProduct(currentPage, limit);
+    public List<ProductDTO> getAllProduct(String field, String option, int currentPage, int limit) throws SQLException {
+        List<ProductVO> productVOList = productDAO.selectAllProduct(field, option, currentPage, limit);
         List<ProductDTO> productDTOList = new ArrayList<>();
 
         for(ProductVO productVO : productVOList) {

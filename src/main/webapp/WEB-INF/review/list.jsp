@@ -74,7 +74,8 @@
                                 <th>아이디</th>
                                 <th>별점</th>
                                 <th>작성일</th>
-                                <th>삭제</th>
+                                <th></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <!-- 테이블 본문 -->
@@ -94,7 +95,18 @@
                                     </td>
                                     <td>${reviewVO.addDate}</td>
                                     <td>
-                                        <form action="<%= String.format("/review/remove?pno=%s", request.getParameter("pno"))%>" method="post" onsubmit="return confirmDelete()">
+                                        <form action="/review/modify" method="get">
+                                            <input type="hidden" name="rno" value="${reviewVO.rno}">
+                                            <input type="hidden" name="pno" value="${reviewVO.pno}">
+                                            <c:set var="emailId" value="<%= emailId %>"/>
+                                            <c:if test="${emailId eq reviewVO.emailId}">
+                                            <button class="btn btn-warning btn-sm"onclick="modfyReview(${reviewVO.rno}, ${reviewVO.pno})">수정</button>
+                                            </c:if>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="/review/remove" method="get" onsubmit="return confirmDelete()">
+                                            <input type="hidden" name="pno" value="${reviewVO.pno}">
                                             <input type="hidden" name="rno" value="${reviewVO.rno}">
                                             <c:set var="emailId" value="<%= emailId %>"/>
                                             <c:if test="${emailId eq reviewVO.emailId}">
@@ -111,7 +123,6 @@
             </div>
         </div>
         <!-- 리뷰 목록/ -->
-
 
         <!-- 리뷰 작성 섹션 -->
         <div class="col-md-4">
@@ -140,55 +151,52 @@
 </div>
 <!-- 주요 내용 섹션/ -->
 
-        <!-- JavaScript 섹션 -->
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // 별점 관련 이벤트
+    document.addEventListener('DOMContentLoaded', function () {
+        const star_input = document.querySelector('.star > input.rate');
+        const star_span = document.querySelector('.star > .rate');
 
-        <script>
-            // 별점 관련 이벤트
-            document.addEventListener('DOMContentLoaded', function () {
-                const star_input = document.querySelector('.star > input.rate');
-                const star_span = document.querySelector('.star > .rate');
+        // 별점 드래그 할 때
+        star_input.addEventListener('input', () => {
+            console.log(star_input.value);
+            let rate = (star_input.value * 10);
+            star_span.style.width = rate + "%";
 
-               /* console.log(star_input);
-                console.log(star_span);*/
-                // 별점 드래그 할 때
-                star_input.addEventListener('input', () => {
-                    console.log(star_input.value);
-                    let rate = (star_input.value * 10);
-                    star_span.style.width = rate + "%";
-                    document.querySelector("input[name=rate]").value = rate / 10;
-                    console.log("rate :" + document.querySelector("input[name=rate]").value);
-                    console.log(rate);
-                });
-            });
+            document.querySelector("input[name=rate]").value = rate / 10;
+            console.log("rate :" + document.querySelector("input[name=rate]").value);
+            console.log(rate);
+        });
+    });
 
-            // 삭제 여부를 확인하는 JavaScript 함수
-            function confirmDelete() {
-                let result = window.confirm("정말 삭제하시겠습니까?");
-                return result;
-            }
+    // 리뷰 작성 폼 제출 전에 별점과 리뷰가 입력되었는지 확인
+    document.querySelector('#reviewForm').addEventListener('submit', function (event) {
+        const selectedRate = document.querySelector("input[name=rate]").value;
+        const selectedText = document.querySelector("textarea[name=content]").value;
 
-            // 리뷰 작성 폼 제출 전에 별점과 리뷰가 입력되었는지 확인
-            document.querySelector('#reviewForm').addEventListener('submit', function (event) {
-                const selectedRate = document.querySelector("input[name=rate]").value;
-                const selectedText = document.querySelector("textarea[name=content]").value;
+        console.log("Selected Rate:", selectedRate);
+        console.log("Selected Text:", selectedText);
 
-                // 별점을 입력하지 않았을 경우
-                if (selectedRate === "") {
-                    alert("별점을 선택해주세요");
-                    event.preventDefault(); // 폼 제출을 막음
-                    return; // 다음 if절이 시행되지 않도록 return
-                }
+        // 별점을 입력하지 않았을 경우
+        if (selectedRate === "") {
+            alert("별점을 선택해주세요");
+            event.preventDefault(); // 폼 제출을 막음
+            return; // 다음 if절이 시행되지 않도록 return
+        }
 
-                // 리뷰를 작성하지 않았을 경우
-                if (selectedText === "") {
-                    alert("리뷰를 작성해주세요")
-                    event.preventDefault(); // 폼 제출을 막음
-                }
-            });
-        </script>
+        // 리뷰를 작성하지 않았을 경우
+        if (selectedText === "") {
+            alert("리뷰를 작성해주세요")
+            event.preventDefault(); // 폼 제출을 막음
+        }
+    });
 
+    // 삭제 여부를 확인하는 JavaScript 함수
+    function confirmDelete() {
+        let result = window.confirm("정말 삭제하시겠습니까?");
+        return result;
+    }
+
+</script>
 </body>
 </html>

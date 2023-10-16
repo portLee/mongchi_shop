@@ -27,6 +27,69 @@
 <!-- Start UI 공통 (복붙) -->
 <!-- Navigation Bar -->
     <jsp:include page="/WEB-INF/inc/menu.jsp" />
+<style>
+    .fade-in-box {
+        animation: fadein 5s ease 3s;
+        -moz-animation: fadein 3s; /* Firefox */
+        -webkit-animation: fadein 3s; /* Safari and Chrome */
+        -o-animation: fadein 3s; /* Opera */
+    }
+    @keyframes fadein {
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-moz-keyframes fadein { /* Firefox */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-webkit-keyframes fadein { /* Safari and Chrome */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity:1;
+        }
+    }
+    @-o-keyframes fadein { /* Opera */
+        from {
+            opacity:0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .active {
+        font-weight: 600;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(function () {
+        const imgSrcs = ['/images/char/img1.png', '/images/char/img2.png', '/images/char/img3.png', '/images/char/img4.png', '/images/char/img5.png'];
+        const random = Math.ceil(Math.random() * 5);
+        $('.hero-img-wrap img').attr('src', imgSrcs[random]);
+    });
+
+    // 네비게이션 클릭시 active 클래스 추가, 삭제
+    document.addEventListener('DOMContentLoaded', function () {
+        const navItems = document.querySelectorAll('.nav-item a');
+        const ACTIVE_CLASSNAME = 'active';
+        const param = searchParam('sort');
+
+        function searchParam(key) {
+            return new URLSearchParams(location.search).get(key);
+        };
+    });
+</script>
 
 <!-- Start Hero Section -->
     <div class="hero">
@@ -38,7 +101,9 @@
                     </div>
                 </div>
                 <div class="col-lg-7">
-
+                    <div class="hero-img-wrap" style="background-color: red;">
+                        <img src="/images/char/img1.png" class="img-fluid fade-in-box" style="max-width: 50%;">
+                    </div>
                 </div>
             </div>
         </div>
@@ -48,8 +113,30 @@
 
     <div class="untree_co-section product-section before-footer-section">
         <div class="container">
-            <div class="row">
+            <nav class="row">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-black active" href="/products">인기순</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="/products?sort=NEW">최신등록순</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="/products?sort=PRICE_LOW&option=asc">낮은가격순</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="/products?sort=PRICE_HIGH">높은가격순</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="/products?sort=SALES">누적판매순</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="/products?sort=REVIEW">리뷰많은순</a>
+                    </li>
+                </ul>
+            </nav>
 
+            <div class="row">
                 <c:forEach var="product" items="${productDTOList}">
                     <!-- Start Column -->
                     <div class="col-12 col-md-4 col-lg-3 mb-5">
@@ -94,6 +181,5 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>

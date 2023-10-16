@@ -63,6 +63,9 @@
                             <span class="icon-cross">
                                 <img src="images/cross.svg" class="img-fluid">
                             </span>
+
+                            <a href="/admin/product/modify?pno=${product.pno}" id="btn-remove" class="btn btn-secondary">수정</a>
+                            <a href="/admin/product/remove?pno=${product.pno}" class="btn btn-primary">삭제</a>
                         </a>
                     </div>
                 </c:forEach>

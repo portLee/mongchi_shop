@@ -30,7 +30,7 @@ public class ProductEditController extends HttpServlet {
 
         try {
             int totalRecord = PRODUCT_SERVICE.getAllProductCount(); // 전체 게시물 수
-            List<ProductDTO> productDTOList = PRODUCT_SERVICE.getAllProduct(currentPage, limit);
+            List<ProductDTO> productDTOList = PRODUCT_SERVICE.getAllProduct("sort", "option" ,currentPage, limit);
 
             int totalPage; // 전체 페이지 계산
             if (totalRecord % limit == 0) {
