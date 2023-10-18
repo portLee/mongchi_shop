@@ -108,7 +108,9 @@
 													totalAmount += price;
 											%>
 											<tr>
-												<td><%= cart.getProductName() %> <strong class="mx-2">x</strong> <%= cart.getCnt() %></td>
+												<td>
+													<%= cart.getProductName() %> <strong class="mx-2">x</strong> <%= cart.getCnt() %>
+												</td>
 												<td><%= price %>원</td>
 											</tr>
 											<%

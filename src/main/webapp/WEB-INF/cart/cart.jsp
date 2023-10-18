@@ -111,7 +111,7 @@
                     <div class="row mb-5">
                         <div class="col-md-10">
                             <button id="btn-selected" class="btn btn-black btn-sm btn-block" style="margin-right: 10px;">선택삭제</button>
-                            <button id="btn-products" class="btn btn-outline-black btn-sm btn-block">쇼핑목록</button>
+                            <button id="btn-list" class="btn btn-outline-black btn-sm btn-block">쇼핑목록</button>
                         </div>
                     </div>
                 </div>
@@ -218,10 +218,9 @@
             });
 
             // 쇼핑목록
-            const btnProducts = document.querySelector("#btn-products");
+            const btnProducts = document.querySelector("#btn-list");
             btnProducts.addEventListener("click", function () {
-               frmCart.action = "/products";
-               frmCart.submit();
+               location.href = "/products";
             });
         });
     </script>

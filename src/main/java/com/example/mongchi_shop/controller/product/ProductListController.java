@@ -58,6 +58,8 @@ public class ProductListController extends HttpServlet {
 
             req.setAttribute("currentPage", currentPage);
             req.setAttribute("totalPage", totalPage);
+            req.setAttribute("sort", sort);
+            req.setAttribute("option", option);
             req.setAttribute("productDTOList", productDTOList);
             req.getRequestDispatcher("/WEB-INF/product/list.jsp").forward(req, resp);
         } catch (Exception e) {

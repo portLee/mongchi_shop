@@ -18,6 +18,9 @@
     int firstPage = ((currentBlock - 1) * pagePerBlock) + 1;
     int lastPage = currentBlock * pagePerBlock;
     lastPage = (lastPage > totalPage) ? totalPage : lastPage;
+
+    System.out.println(currentBlock);
+    System.out.println(totalBlock);
 %>
 <html>
 <head>
@@ -67,7 +70,7 @@
         }
     }
 
-    .active {
+    .bold {
         font-weight: 600;
     }
 </style>
@@ -79,14 +82,25 @@
         $('.hero-img-wrap img').attr('src', imgSrcs[random]);
     });
 
-    // 네비게이션 클릭시 active 클래스 추가, 삭제
+    // 정렬 탭 클릭시 active 클래스 추가
     document.addEventListener('DOMContentLoaded', function () {
         const navItems = document.querySelectorAll('.nav-item a');
-        const ACTIVE_CLASSNAME = 'active';
+        const BOLD_CLASSNAME = 'bold';
         const sort = searchParam('sort');
 
         for (const item of navItems) {
-            console.log(item.getAttribute('href'));
+            let href = item.getAttribute('href');
+
+            if (href.includes('&')) {
+                href = href.split('&')[0];
+                console.log(href);
+            }
+
+            const splits = href.split('=');
+            if (sort === splits[1]) {
+                item.classList.add(BOLD_CLASSNAME);
+                break;
+            }
         }
 
         function searchParam(key) {
@@ -120,7 +134,7 @@
             <nav class="row">
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link text-black active" href="/products">인기순</a>
+                        <a class="nav-link text-black" href="/products">인기순</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-black" href="/products?sort=NEW">최신등록순</a>
@@ -158,32 +172,40 @@
             </div>
 
             <%-- 페이지 번호 --%>
-            <div style="text-align: center">
-                <c:set var="currentPage" value="<%= currentPage %>" />
-                <a href="/products?currentPage=1">첫 페이지</a>
-                <c:if test="<%= currentBlock > 1 %>">
-                    <a href="/products?currentPage=<%= firstPage - 1 %>">이전</a>
-                </c:if>
-
-                <c:forEach var="i" begin="<%= firstPage %>" end="<%= lastPage %>">
-                    <a href="/products?currentPage=${i}">
-                        <c:choose>
-                            <c:when test="${currentPage == i}">
-                                <span style="color: #4C5317;"><b>[${i}]</b></span>
-                            </c:when>
-                            <c:otherwise>
-                                <span style="color: #4C5317;">[${i}]</span>
-                            </c:otherwise>
-                        </c:choose>
-                    </a>
-                </c:forEach>
-
-                <c:if test="<%= currentBlock < totalBlock %>">
-                    <a href="/products?currentPage=<%= lastPage + 1 %>">다음</a>
-                </c:if>
-                <a href="/products?currentPage=${totalPage}">마지막 페이지</a>
+            <div>
+                <ul class="pagination flex-wrap justify-content-center">
+                    <c:if test="<%= currentBlock > 1 %>">
+                        <li class="page-item">
+                            <a class="page-link" data-num="<%= firstPage - 1 %>">prev</a>
+                        </li>
+                    </c:if>
+                    <c:forEach var="num" begin="<%= firstPage %>" end="<%= lastPage %>">
+                        <li class="page-item ${currentPage == num ? "active" : ""}">
+                            <a class="page-link" data-num="${num}">${num}</a>
+                        </li>
+                    </c:forEach>
+                    <c:if test="<%= currentBlock < totalBlock %>">
+                        <li class="page-item">
+                            <a href="#" class="page-link" data-num="<%= lastPage + 1 %>">next</a>
+                        </li>
+                    </c:if>
+                </ul>
             </div>
         </div>
     </div>
+
+<script>
+    document.querySelector('.pagination').addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const target = e.target;
+        if(target.tagName !== 'A') {
+            return;
+        }
+        const num = target.getAttribute('data-num');
+        self.location = `/products?currentPage=\${num}&sort=${sort}&option=${option}`;
+    });
+</script>
 </body>
 </html>

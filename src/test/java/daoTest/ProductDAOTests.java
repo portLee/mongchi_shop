@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
+import java.util.List;
 
 @Log4j2
 public class ProductDAOTests {
@@ -75,4 +76,5 @@ public class ProductDAOTests {
     public void testSelectAllProductCount() throws SQLException {
         log.info(dao.selectAllProductCount());
     }
+
 }

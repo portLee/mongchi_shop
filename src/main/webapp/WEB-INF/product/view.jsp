@@ -68,10 +68,15 @@
                 </p>
                 <h3 class="text-primary">총 상품금액 <span class="price">${productDTO.unitPrice}</span>원</h3>
 
-                <div class="col-md-12 mt-4">
-                    <button id="btn-add-cart" class="btn btn-secondary">장바구니</button>
-                    <button id="btn-cart" class="btn btn-primary">장바구니 이동</button>
-                    <button id="btn-Qna" class="btn btn-primary">상품문의</button>
+                <div class="col-md-12">
+                    <div class="mt-4">
+                        <button id="btn-add-cart" class="btn btn-secondary" style="width: 100%;">장바구니</button>
+                    </div>
+                    <div class="mt-3">
+                        <button id="btn-cart" class="btn btn-primary">장바구니 이동</button>
+                        <button id="btn-Qna" class="btn btn-primary">상품문의</button>
+                        <button id="btn-list" class="btn btn-black">상품목록</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -256,6 +261,11 @@
               location.href = '/qnaBoards?pno=' + pno;
           });
 
+          // 상품목록 페이지 이동
+          const btnList = document.querySelector('#btn-list');
+          btnList.addEventListener('click', function () {
+              location.href = '/products';
+          });
       });
   </script>
 
