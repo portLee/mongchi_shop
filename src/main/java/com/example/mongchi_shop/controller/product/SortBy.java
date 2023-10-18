@@ -4,7 +4,6 @@ import lombok.Getter;
 
 @Getter
 public enum SortBy {
-//    BEST, // 인기순
     NEW("addDate"), // 신상품순
     PRICE_LOW("unitPrice"), // 가격낮은순
     PRICE_HIGH("unitPrice"), // 가격높은순

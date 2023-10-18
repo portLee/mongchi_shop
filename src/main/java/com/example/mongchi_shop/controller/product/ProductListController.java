@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.sql.SQLException;
 import java.util.List;
 
 @Log4j2
@@ -29,8 +28,11 @@ public class ProductListController extends HttpServlet {
         log.info("sort: " + sort);
         log.info("option: " + option);
 
-        // sort 값이 null이 아니면 해당 필드명을 전달.
-        String field = (sort != null) ? SortBy.valueOf(sort).getField() : "pno";
+        // sort 값이 null이면 "NEW"를 삽입.
+        if (sort == null) {
+            sort = "NEW";
+        }
+        String field = SortBy.valueOf(sort).getField();
         log.info("field: " + field);
 
         if (req.getParameter("option") != null) {

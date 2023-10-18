@@ -134,9 +134,6 @@
             <nav class="row">
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link text-black" href="/products">인기순</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link text-black" href="/products?sort=NEW">최신등록순</a>
                     </li>
                     <li class="nav-item">
