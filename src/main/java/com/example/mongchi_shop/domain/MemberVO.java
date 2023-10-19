@@ -2,8 +2,6 @@ package com.example.mongchi_shop.domain;
 
 import lombok.*;
 
-import java.time.LocalDate;
-
 
 @Builder
 @Getter
@@ -23,5 +21,6 @@ public class MemberVO {
     private String addDate;
     private String birthday;
     private String uuid;
+    private String role;
 
 }

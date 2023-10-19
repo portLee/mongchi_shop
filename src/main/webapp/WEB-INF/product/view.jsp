@@ -221,7 +221,7 @@
     <script>
       document.addEventListener('DOMContentLoaded', function () {
           const frmProduct = document.querySelector('form[name=frmProduct]');
-          const pno = document.querySelector('input[name=pno]').value;
+          // const pno = document.querySelector('input[name=pno]').value;
 
           // 폼 submit 방지
           frmProduct.addEventListener('submit', function (event) {
@@ -258,7 +258,7 @@
           // 상품문의 페이지 이동
           const btnQna = document.querySelector('#btn-Qna');
           btnQna.addEventListener('click', function () {
-              location.href = '/qnaBoards?pno=' + pno;
+              location.href = '/qnaBoards?pno=${productDTO.pno}&productName=${productDTO.productName}';
           });
 
           // 상품목록 페이지 이동

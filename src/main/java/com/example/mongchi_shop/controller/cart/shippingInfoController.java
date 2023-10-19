@@ -30,6 +30,26 @@ public class shippingInfoController extends HttpServlet {
 
         HttpSession session = req.getSession();
         String orderId = (String) session.getAttribute("orderId");
+        List<CartDTO> cartDTOList = (List<CartDTO>) session.getAttribute("cartDTOList");
+        String[] checks = req.getParameterValues("checks");
+
+        // 새로운 cart 리스트를 담을 객체 생성
+        List<CartDTO> selectedCartDTOList = new ArrayList<>();
+
+        // checks와 일치하는 cartDTO를 selectedCartDTOList에 추가
+        if (cartDTOList != null && checks != null) {
+            for (CartDTO cartDTO : cartDTOList) {
+                int cno = cartDTO.getCno();
+                for (String check : checks) {
+                    int checkedCno = Integer.parseInt(check);
+                    if (cno == checkedCno) {
+                        selectedCartDTOList.add(cartDTO);
+                        break; // 이미 해당 객체가 선택되었으므로 더 이상 비교할 필요가 없습니다.
+                    }
+                }
+            }
+            session.setAttribute("cartDTOList", selectedCartDTOList);
+        }
 
         req.getRequestDispatcher("/WEB-INF/cart/shippingInfo.jsp").forward(req, resp);
     }

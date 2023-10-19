@@ -22,6 +22,17 @@
 <html>
 <head>
     <title>장바구니</title>
+    <script>
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                // bfcache로 페이지가 복원되었을 때
+                location.reload();
+            } else {
+                // persisted가 true가 아닌 경우는 정상적으로 페이지가 로드된 경우다.
+                console.log("정상적으로 페이지가 로드되었습니다.")
+            }
+        });
+    </script>
 </head>
 <body>
     <!-- Navigation Bar -->

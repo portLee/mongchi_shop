@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet("/qnaBoard/modifyQuestion")
+@WebServlet("/qnaBoards/modifyQuestion")
 public class QnABoardModifyQuestionController extends HttpServlet {
 
     private final QnABoardService qnABoardService=QnABoardService.INSTANCE;
@@ -21,14 +21,16 @@ public class QnABoardModifyQuestionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int qno=Integer.parseInt(req.getParameter("qno"));
-        log.info("qno : " + qno);
+        log.info("QnABoardModifyQuestionController doGet qno : " + qno);
         int pno = Integer.parseInt(req.getParameter("pno"));
-        log.info("pno : " + pno);
+        log.info("QnABoardModifyQuestionController doGet pno : " + pno);
 
         try {
             QnABoardDTO qnABoardDTO = qnABoardService.getQnABoardByQno(pno, qno);
+            log.info(qnABoardDTO.isSecreted());
             log.info("qnABoardDTO : " + qnABoardDTO);
             req.setAttribute("qnABoardDTO", qnABoardDTO);
+            req.setAttribute("pno", pno);
             req.getRequestDispatcher("/WEB-INF/qnaBoard/modify.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -41,9 +43,13 @@ public class QnABoardModifyQuestionController extends HttpServlet {
         QnABoardDTO qnABoardDTO=new QnABoardDTO();
         resp.setContentType("text/html; charset=utf-8");
         req.setCharacterEncoding("utf-8");
+        log.info("QnABoardModifyQuestionController POST");
+
+        int pno = Integer.parseInt(req.getParameter("pno"));
+        log.info("QnABoardModifyQuestionController POST pno: "+pno);
 
         try {
-            log.info("/qnaBoard/modifyQuestion POST");
+            log.info("/qnaBoard/modifyQuestion POST 시작");
             BeanUtils.populate(qnABoardDTO, req.getParameterMap());
             log.info(qnABoardDTO);
             qnABoardService.modifyQuestionBoard(qnABoardDTO);
@@ -51,7 +57,6 @@ public class QnABoardModifyQuestionController extends HttpServlet {
             log.info(e.getMessage());
             throw new ServletException("QnABoardModifyQuestionController POST error");
         }
-
-        resp.sendRedirect("/qnaBoard/qnaList?pcode=P1111");
+        resp.sendRedirect("/qnaBoards?pno="+pno);
     }
 }

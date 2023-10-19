@@ -11,22 +11,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet("/qnaBoard/remove")
-public class QnABoardRemoveController extends HttpServlet {
+@WebServlet("/qnaBoards/remove")
+public class QnABoardRemoveQuestionController extends HttpServlet {
 
     private final QnABoardService qnABoardService=QnABoardService.INSTANCE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("/qnaBoard/remove GET");
+        int qno = Integer.parseInt(req.getParameter("qno"));
+        log.info("qno="+qno);
+        int pno = Integer.parseInt(req.getParameter("pno"));
+        log.info("pno="+pno);
 
         try {
-            qnABoardService.removeQnABoard(Integer.parseInt(req.getParameter("qno")));
+            qnABoardService.removeQnABoard(qno);
         } catch(Exception e) {
             log.error(e.getMessage());
             throw new ServletException("remove error");
         }
 
-        resp.sendRedirect("/qnaBoard/qnaList?pcode=P1111");
+        resp.sendRedirect("/qnaBoards?pno="+pno);
     }
 }

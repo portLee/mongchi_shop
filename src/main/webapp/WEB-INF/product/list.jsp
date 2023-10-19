@@ -84,23 +84,29 @@
 
     // 정렬 탭 클릭시 active 클래스 추가
     document.addEventListener('DOMContentLoaded', function () {
-        const navItems = document.querySelectorAll('.nav-item a');
+        const navItems = document.querySelectorAll('.nav a');
         const BOLD_CLASSNAME = 'bold';
         const sort = searchParam('sort');
 
-        for (const item of navItems) {
-            let href = item.getAttribute('href');
+        if (sort != null) {
+            for (const item of navItems) {
+                let href = item.getAttribute('href');
 
-            if (href.includes('&')) {
-                href = href.split('&')[0];
-                console.log(href);
-            }
+                if (href.includes('&')) {
+                    href = href.split('&')[0];
+                    console.log(href);
+                }
 
-            const splits = href.split('=');
-            if (sort === splits[1]) {
-                item.classList.add(BOLD_CLASSNAME);
-                break;
+                const splits = href.split('=');
+                if (sort === splits[1]) {
+                    item.classList.add(BOLD_CLASSNAME);
+                    break;
+                }
             }
+        }
+        else {
+            console.log(navItems[0]);
+            navItems[0].classList.add(BOLD_CLASSNAME);
         }
 
         function searchParam(key) {

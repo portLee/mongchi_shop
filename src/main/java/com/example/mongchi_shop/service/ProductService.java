@@ -70,30 +70,4 @@ public enum ProductService {
 
         return fileName;
     }
-
-    public void registerProduct(ProductDTO productDTO) throws SQLException {
-        log.info("registerProduct(ProductDTO productDTO)...");
-        log.info("productDTO : " + productDTO);
-
-        ProductVO productVO = modelMapper.map(productDTO, ProductVO.class);
-        log.info("productVO : " + productVO);
-
-        productDAO.insertProduct(productVO);
-    }
-
-    public void modifyProduct(ProductDTO productDTO) throws SQLException {
-        log.info("modifyProduct(ProductDTO productDTO)...");
-        log.info("productDTO : " + productDTO);
-
-        ProductVO productVO = modelMapper.map(productDTO, ProductVO.class);
-        log.info("productVO : " + productVO);
-
-        productDAO.updateProduct(productVO);
-    }
-
-    public void removeProduct(int pno) throws SQLException {
-        log.info("removeProduct(int pno)...");
-        log.info("pno : " + pno);
-        productDAO.deleteProduct(pno);
-    }
 }

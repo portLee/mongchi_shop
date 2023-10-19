@@ -1,14 +1,16 @@
-<%@ page import="java.util.List" %>
 <%@ page import="com.example.mongchi_shop.dto.QnABoardDTO" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.mongchi_shop.dto.MemberDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link href="/css/tiny-slider.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/dc88001a08.js" crossorigin="anonymous"></script>
     <title>qna</title>
 </head>
 <body>
@@ -16,6 +18,7 @@
   List<QnABoardDTO> qnABoardDTOList=(List<QnABoardDTO>) request.getAttribute("qnABoardDTOList");
   int currentPage=(Integer) request.getAttribute("currentPage");
   int totalPage=(Integer) request.getAttribute("totalPage");
+  int pno=(Integer)request.getAttribute("pno"); // doGet
 
   int pagePerBlock=5; // 페이지 출력 시 나올 범위
   int totalBlock=totalPage%pagePerBlock==0 ? totalPage / pagePerBlock : totalPage / pagePerBlock+1; // 전체 블럭 수
@@ -24,28 +27,86 @@
   int lastPage=thisBlock*pagePerBlock; // 블럭의 마지막 페이지
   lastPage=(lastPage>totalPage)?totalPage:lastPage;
 
-  String emailId="d";
+  MemberDTO memberDTO= (MemberDTO) session.getAttribute("loginInfo");
+  String sessionEmailId=null;
+  String role = null;
+  if(memberDTO!=null) {
+    sessionEmailId= memberDTO.getEmailId();
+    role=memberDTO.getRole();
+  }
+%>
 
-  for (QnABoardDTO qnABoardDTO : qnABoardDTOList) {
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+  $(function() {
+    $(".answerToggle").hide();
+    $(".toggle").on("click", function() {
+      $(this).next(".answerToggle").slideToggle();
+    });
+  });
+</script>
+<style>
+  li { list-style: none; }
 
+  .list { width: 1000px; margin: 0 auto; }
+
+  .notice ul {
+    width: 100%;
+  }
+
+  .answer {
+    width: 100px;
+    text-align: center;
+  }
+
+  .email {
+    width: 150px;
+    text-align: center;
   }
 
 
-//  MemberDTO memberDTO=session.getAttribute("loginInfo");
-//  String emailId=memberDTO.getEmailId();
-%>
+  .questionContent {
+    width: 700px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
+  .paging {
+    text-align: center;
+  }
+  .questionDate {
+    width: 120px;
+    text-align: center;
+  }
+
+  .list > ul { position: relative; display: flex; margin-bottom: 0;}
+  div ul li { position: relative; }
+
+  .answerToggle {
+    flex-direction: column;
+  }
+  .answerToggle li { width: 100%; text-align: center;}
+  .toggle li { padding-top: 10px; }
+  .toggle:hover {
+    background: rgb(220 226 224);
+  }
+  .a_href {
+    text-decoration: none; color: gray; font-size: 10px;
+  }
+
+</style>
 
 <jsp:include page="../inc/menu.jsp"/>
 
 <!-- 제목 영역 시작 -->
 <div class="hero">
   <div class="container">
-    <h1><span class="d-block">p126의 QnA 목록</span></h1>
+    <h1 class="font-apply"><span class="d-block">QnA 목록</span></h1>
   </div>
 </div>
 <!-- 제목 영역 끝 -->
-
 
 <section class="ftco-section">
   <div class="container">
@@ -53,86 +114,137 @@
     <div class="row">
       <div class="col-md-12">
         <h3 class="h5 mb-4 text-center"></h3>
-        <div>
-          <table class="table myaccordion table-hover" id="accordion">
-            <thead>
-            <tr>
-              <th>답변 여부</th>
-              <th>아이디</th>
-              <th>내용</th>
-              <th>작성일</th>
-              <th>&nbsp;</th>
-            </tr>
-            </thead>
 
+        <div class="list">
+          <ul style="font-weight: bold; border-bottom: 2px solid black;" class="text-black">
+            <li class="answer">답변 여부</li>
+            <li class="questionContent">내용</li>
+            <li class="email">작성자</li>
+            <li class="questionDate">작성일</li>
+          </ul>
 
-            <tbody>
-            <c:forEach var="qnaDto" items="${qnABoardDTOList}">
-            <tr data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <td>${qnaDto.isAnswered() ? "답변 완료" : "미답변"}</td>
-              <td>${qnaDto.getEmailId()}</td>
-              <c:if test="${qnaDto.secreted == true}">
-                <c:choose>
-                  <c:when test="${qnaDto.emailId eq 'd'}">
-                    <td>${qnaDto.questionContent}</td>
-                  </c:when>
-                  <c:otherwise>
-                    <td><i class="fa-solid fa-lock"></i>&nbsp;비밀글입니다</td>
-                  </c:otherwise>
-                </c:choose>
-              </c:if>
-              <c:if test="${qnaDto.secreted == false}">
-                <td>${qnaDto.questionContent}</td>
-              </c:if>
-              <td>${qnaDto.getQuestionDate()}</td>
-            </tr>
-            </c:forEach>
+          <c:forEach var="qnaDto" items="${qnABoardDTOList}">
+            <c:if test="${not empty qnABoardDTOList}">
+            <%--            <c:if test="${fn:length(qnABoardDTOList) > 0}">--%>
 
-<%--              답변 영역 --%>
-            <c:forEach var="qnaDto" items="${qnABoardDTOList}">
-            <tr>
-                  <c:if test="${qnaDto.secreted == true && qnaDto.answered == true}">
-                    <c:choose>
-                      <c:when test="${qnaDto.emailId eq 'd'}">
-                        <td colspan="6">${qnaDto.questionContent}</td>
-                        <td colspan="6">${qnaDto.answerContent}</td>
-                        <td colspan="6">${qnaDto.answerDate}</td>
-                      </c:when>
-                    </c:choose>
-                  </c:if>
-                <c:if test="${qnaDto.secreted == false && qnaDto.answered == true}">
-                  <td>${qnaDto.questionContent}</td>
-                  <td>${qnaDto.answerContent}</td>
-                  <td>${qnaDto.answerDate}</td>
+              <c:set var="sessionEmailId" value="<%=sessionEmailId%>"/>
+              <c:set var="role" value="<%=role%>"/>
+              <c:set var="emailId" value="${qnaDto.emailId}"/>
+              <c:set var="emailIdSplit" value="${fn:substringBefore(emailId,'@')}"/>
+              <c:set var="questionDate" value="${qnaDto.questionDate}"/>
+              <c:set var="questionDateSplit" value="${fn:substringBefore(questionDate,' ')}"/>
+              <c:set var="answerDate" value="${qnaDto.answerDate}"/>
+              <c:set var="answerDateSplit" value="${fn:substringBefore(answerDate,' ')}"/>
+            <ul class="toggle">
+                <li class="answer">${qnaDto.isAnswered() ? "답변 완료" : "미답변"}</li>
+
+                <c:if test="${qnaDto.secreted == true}">
+                  <c:choose>
+                    <c:when test="${(qnaDto.emailId eq sessionEmailId) or (role eq 'qna')}">
+                      <li class="questionContent">${qnaDto.questionContent}</li>
+                    </c:when>
+                    <c:otherwise>
+                      <li class="questionContent"><i class="fa-solid fa-lock"></i>&nbsp;비밀글입니다.</li>
+                    </c:otherwise>
+                  </c:choose>
                 </c:if>
-            </tr>
-            </c:forEach>
-            </tbody>
-          </table>
+                <c:if test="${qnaDto.secreted == false}">
+                  <li class="questionContent">${qnaDto.questionContent}</li>
+                </c:if>
+              <li class="email">${emailIdSplit}</li>
+              <li class="questionDate">${questionDateSplit}</li>
+              </ul>
+
+              <ul class="answerToggle" style="background:rgb(220 226 224); color: black; padding: 10px">
+                <li class="answer"></li>
+
+                <c:if test="${qnaDto.secreted==false}">
+                  <li class="questionContent">
+                      ${qnaDto.questionContent}
+                        <c:if test="${qnaDto.emailId eq sessionEmailId}">
+                          <c:if test="${qnaDto.answered==false}">
+                            <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 수정</a>
+                          </c:if>
+                          <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 삭제&nbsp;</a>
+                        </c:if>
+                        <c:if test="${role eq 'qna'}">
+                          <a href="/qnaBoards/addAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a>
+                        </c:if>
+                  </li>
+                  <eli class="email"></eli>
+
+                  <c:if test="${qnaDto.answered==true}">
+                    <hr>
+                    <li>
+                      <i class="fa-regular fa-comment fa-flip-horizontal"></i>
+                      ${qnaDto.answerContent} <span style="color: gray">${answerDateSplit}</span>
+                      <c:if test="${role eq 'qna'}">
+                        <a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 수정</a>
+                      </c:if>
+                    </li>
+                  </c:if>
+                </c:if>
+
+                <c:if test="${qnaDto.secreted==true}">
+                  <c:if test="${(qnaDto.emailId eq sessionEmailId)}">
+                    <li>
+                        ${qnaDto.questionContent}
+                          <c:if test="${qnaDto.answered==false}">
+                            <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 수정</a>
+                          </c:if>
+                          <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 삭제&nbsp;</a>
+                    </li>
+                    <c:if test="${qnaDto.answered==true}">
+                      <hr>
+                      <li>
+                        <i class="fa-regular fa-comment fa-flip-horizontal"></i>
+                          ${qnaDto.answerContent} <span>${qnaDto.answerDate}</span>
+                      </li>
+                    </c:if>
+                  </c:if>
+
+                  <c:if test="${(role eq 'qna')}">
+                    <li>${qnaDto.questionContent}
+                      <a href="/qnaBoards/addAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a></li>
+                    <c:if test="${qnaDto.answered==true}">
+                      <hr>
+                      <li>
+                        <i class="fa-regular fa-comment fa-flip-horizontal"></i>
+                          ${qnaDto.answerContent} <span>${qnaDto.answerDate}<a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 수정</a></span>
+                      </li>
+                    </c:if>
+                  </c:if>
+
+
+
+              </c:if>
+
+              </ul>
+            </c:if>
+      </c:forEach>
+          <hr>
+          <button class="btn btn-primary-hover-outline" style="background: #3b5d50 !important; padding: 10px 20px !important;"><a style="text-decoration: none" class="text-white" href="/qnaBoard/add?pno=<%=pno%>&productName=${productName}">문의 등록</a></button>
+          <button class="btn btn-primary-hover-outline" style="padding: 10px 20px !important;"><a href="/products/product?pno=<%=pno%>" style="text-decoration: none;" class="text-white">뒤로 가기</a></button>
+
+        </div>
         </div>
       </div>
-    </div>
   </div>
 </section>
+<h3 class="h5 mb-4 text-center"></h3>
 
 
-
-
-
-
-
-<%--<div></div>--%>
 
 <!-- 페이지 -->
-<div style="text-align: center">
+<div class="paging">
   <c:set var="currentPage" value="<%=currentPage%>"/>
 
-  <a href="/qnaBoard/qnaList?currentPage=1"/><span>처음</span></a>
+  <a href="/qnaBoards?pno=<%=pno%>&currentPage=1" style="text-decoration: none"/><span>처음</span></a>
   <c:if test="${thisBlock>1}">
-    <a href="/qnaBoard/qnaList?currentPage=${firstPage-1}"/><span>이전</span></a>
+    <a href="/qnaBoards?pno=<%=pno%>&currentPage=${firstPage-1}" style="text-decoration: none"/><span>이전</span></a>
   </c:if>
   <c:forEach var="i" begin="<%=firstPage%>" end="<%=lastPage%>">
-    <a href="/qnaBoard/qnaList?currentPage=${i}">
+    <a href="/qnaBoards?pno=<%=pno%>&currentPage=${i}" style="text-decoration: none">
         <%--                    <a href="./boardList.do?pageNum=${i}&items=<%=items%>&text=<%=text%>">--%>
       <c:choose>
         <c:when test="${currentPage==i}">
@@ -146,16 +258,26 @@
   </c:forEach>
 
   <c:if test="${thisBlock<totalBlock}">
-    <a href="/qnaBoard/qnaList?currentPage=${lastPage+1}"/><span>다음</span></a>
+    <a href="/qnaBoards?pno=<%=pno%>&currentPage=${lastPage+1}" style="text-decoration: none"/><span>다음</span></a>
   </c:if>
-  <a href="/qnaBoard/qnaList?currentPage=${totalPage}"/><span>마지막</span></a>
+  <a href="/qnaBoards?pno=<%=pno%>&currentPage=${totalPage}" style="text-decoration: none"/><span>마지막</span></a>
 
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/tiny-slider.js"></script>
   <script src="/js/custom.js"></script>
   <jsp:include page="../inc/footer.jsp"/>
+
+  <style>
+    .paging a:hover {
+      color: seagreen;
+      font-weight: bold;
+    }
+  </style>
 </div>
-</div>
-</ul>
+
+<script>
+
+</script>
+
 </body>
 </html>

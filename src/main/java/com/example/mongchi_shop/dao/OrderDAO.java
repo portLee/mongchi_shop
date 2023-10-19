@@ -47,6 +47,17 @@ public class OrderDAO {
         int rowsAffected = preparedStatement.executeUpdate();
         return rowsAffected > 0;
     }
+    
+    // 상품 주문수 업데이트
+    public boolean updateAccumulatedOrders(int pno, int cnt) throws SQLException {
+        String sql = "UPDATE product set accumulatedOrders = accumulatedOrders + ? where pno = ?";
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, cnt);
+        preparedStatement.setInt(2, pno);
+        int rowsAffected = preparedStatement.executeUpdate();
+        return rowsAffected > 0;
+    }
 
     // 주문 조회
     public OrderVO selectOrderByOno(int ono) throws SQLException {

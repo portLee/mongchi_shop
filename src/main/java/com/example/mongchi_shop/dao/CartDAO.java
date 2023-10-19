@@ -1,7 +1,6 @@
 package com.example.mongchi_shop.dao;
 
 import com.example.mongchi_shop.domain.CartVO;
-import com.example.mongchi_shop.domain.ProductVO;
 import lombok.Cleanup;
 
 import java.sql.Connection;
@@ -29,15 +28,15 @@ public class CartDAO {
             preparedStatement.executeUpdate();
         }
         else {
-            String emailId = cartVO.getEmailId();
-            emailId = emailId == null ? "Guest" : emailId;
+//            String emailId = cartVO.getEmailId();
+//            emailId = emailId == null ? "Guest" : emailId;
 
             sql = "insert into cart (orderId, emailId, cnt, addDate, pno, productName, unitPrice, fileName)" +
                     " values (?, ?, ?, now(), ?, ?, ?, ?)";
 
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, cartVO.getOrderId());
-            preparedStatement.setString(2, emailId);
+            preparedStatement.setString(2, cartVO.getEmailId());
             preparedStatement.setInt(3, cartVO.getCnt());
             preparedStatement.setInt(4, cartVO.getPno());
             preparedStatement.setString(5, cartVO.getProductName());

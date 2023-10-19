@@ -1,3 +1,7 @@
+
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.mongchi_shop.dto.MemberDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,82 +11,83 @@
   <link href="/css/tiny-slider.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
 </head>
-
-<style>
-  input[type=text]{
-    width: 500px;
-    height: 32px;
-    font-size: 15px;
-    border: 0;
-    border-radius: 15px;
-    outline: none;
-    padding-left: 10px;
-    background-color: rgb(233, 233, 233);
-  }
-  textarea {
-    width: 500px;
-    height: 100px;
-    font-size: 15px;
-    border: 0;
-    border-radius: 15px;
-    outline: none;
-    padding-left: 10px;
-    background-color: rgb(233, 233, 233);
-  }
-  .center {
-    text-align: center;
-  }
-  button {
-    width: 100px;
-    height: 30px;
-    background: darkslategray;
-    color: white;
-    border: none;
-  }
-</style>
-
 <body>
+<%
+  int pno=(Integer)request.getAttribute("pno"); // doGet
+//  int pno=Integer.parseInt(request.getParameter("pno"));
+  MemberDTO memberDTO= (MemberDTO) session.getAttribute("loginInfo");
+  String sessionEmailId=null;
+  if(memberDTO!=null) {
+    sessionEmailId= memberDTO.getEmailId();
+  }
+%>
 
   <jsp:include page="../inc/menu.jsp"/>
 
   <div class="hero">
     <div class="container">
-      <h1><span class="d-block">상품 Q&A 수정</span></h1>
+      <h1 class="font-apply"><span class="d-block">Q&A 수정</span></h1>
     </div>
   </div>
 
-  <div class="center">
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center"></div>
-        <div class="row">
-          <div class="col-md-12">
-            <h3 class="h5 mb-4 text-center">질문</h3>
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center"></div>
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="h5 mb-4 text-black"></h3>
+          <h3 class="h5 mb-4 text-black"><b>질문 수정</b></h3>
 
-                <form id="modifyQuestionForm" action="/qnaBoard/modifyQuestion" method="post">
-                  <p><input type="hidden" name="qno" value="${qnABoardDTO.qno}" ></p>
-                  <p><input type="hidden" name="pcode" value="${qnABoardDTO.pcode}" ></p>
-                  <p><label>이메일&nbsp;</label><input type="text" name="emailId" value="${qnABoardDTO.emailId}" readonly></p>
-                  <p><label>내용&nbsp;</label><textarea name="questionContent">${qnABoardDTO.questionContent}</textarea></p>
-                  <input type="checkbox" name="secreted"><label>&nbsp;비밀글 설정&nbsp;</label>
-                  <button type="submit">수정</button>
-                </form>
+              <form id="modifyQuestionForm" action="/qnaBoards/modifyQuestion" method="post">
+                <input type="hidden" name="qno" value="${qnABoardDTO.qno}" >
+                <input type="hidden" name="pno" value="${qnABoardDTO.pno}" >
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="text-black">제품명</label>
+                      <input type="text" name="productName" class="form-control" value="${qnABoardDTO.productName}" readonly>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="text-black">이메일</label>
+                      <input type="text" name="emailId" class="form-control" value="<%=sessionEmailId%>" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-5">
+                  <label class="text-black">내용</label>
+                  <textarea name="questionContent" class="form-control" cols="30" rows="5" required>
+                    ${qnABoardDTO.questionContent}
+                  </textarea>
+                  <p><input type="checkbox" name="secreted" ${qnABoardDTO.secreted ? "checked " : ""}><label class="text-black">&nbsp;비밀글 설정&nbsp;</label></p>
+                </div>
+                <div class="form-group" style="margin-top: -30px;">
+                  <button id="send" type="button" class="btn btn-primary-hover-outline" style="background: #3b5d50 !important; padding: 10px 20px !important;">수정</button>
+                  <button type="reset" class="btn btn-primary-hover-outline" style="padding: 10px 20px !important;">초기화</button>
+                  <button class="btn btn-secondary-hover-outline" style="padding: 10px 20px !important;"><a href="/qnaBoards?pno=<%=pno%>" style="text-decoration: none;" class="text-white">뒤로 가기</a></button>
+                </div>
 
-            <hr>
+              </form>
 
-            <%--  답변 등록 영역--%>
-            <h3 class="h5 mb-4 text-center">답변</h3>
-            <form id="modifyAnswerForm" action="/qnaBoard/modifyAnswer" method="post">
-              <input type="hidden" name="qno" value="${qnABoardDTO.qno}">
-              <textarea name="answerContent"></textarea>
-              <button type="submit">답변 등록</button>
-            </form>
-          </div>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
+<script>
+  const questionForm = document.querySelector("#modifyQuestionForm");
+  const questionContent = document.querySelector("#modifyQuestionForm textarea");
+  const btn = document.querySelector("#send");
+  btn.addEventListener("click", function () {
+    questionContent.value = questionContent.value.trim();
+    questionForm.submit();
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    const content = document.querySelector("textarea");
+    content.value = content.value.trim();
+  });
+</script>
 
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/tiny-slider.js"></script>

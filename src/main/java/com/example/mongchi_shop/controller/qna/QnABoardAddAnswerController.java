@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet("/qnaBoards/modifyAnswer")
-public class QnABoardModifyAnswerController extends HttpServlet {
+@WebServlet("/qnaBoards/addAnswer")
+public class QnABoardAddAnswerController extends HttpServlet {
     private final QnABoardService qnABoardService = QnABoardService.INSTANCE;
 
     @Override
@@ -27,7 +27,7 @@ public class QnABoardModifyAnswerController extends HttpServlet {
         try {
             QnABoardDTO qnABoardDTO=qnABoardService.getQnABoardByQno(pno, qno);
             req.setAttribute("qnABoardDTO", qnABoardDTO);
-            req.getRequestDispatcher("/WEB-INF/qnaBoard/modifyAnswer.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/qnaBoard/answer.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new ServletException("QnABoardService GET error");
@@ -44,16 +44,15 @@ public class QnABoardModifyAnswerController extends HttpServlet {
         log.info("pno: "+pno);
 
         try {
-            log.info("/qnaBoard/removeAnswer(Update) POST");
+            log.info("/qnaBoard/addAnswer POST");
             BeanUtils.populate(qnABoardDTO, req.getParameterMap());
             log.info(qnABoardDTO);
-            qnABoardService.modifyAnswerBoard(qnABoardDTO);
+            qnABoardService.addAnswerBoard(qnABoardDTO);
         } catch(Exception e) {
             log.info(e.getMessage());
-            throw new ServletException("QnABoardRemoveAnswerController POST error");
+            throw new ServletException("QnABoardAddAnswerController POST error");
         }
 
         resp.sendRedirect("/qnaBoards?pno="+pno);
     }
-
 }

@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Log4j2
-@WebServlet("/admin/products")
+@WebServlet("/admin")
 public class ProductEditController extends HttpServlet {
     static final int ROW_PER_PAGE = 8; // 페이지당 게시물 숫자
     ProductService PRODUCT_SERVICE = ProductService.INSTANCE;

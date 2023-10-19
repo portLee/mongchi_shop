@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Log4j2
-@WebFilter(urlPatterns = {"/cart/*"})
+@WebFilter(urlPatterns = {"/cart/*", "/member/mypage"})
 public class OrderIdFilter implements Filter {
 
     @Override

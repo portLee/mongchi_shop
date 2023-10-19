@@ -31,11 +31,16 @@ public enum OrderService {
         OrderVO orderVO = modelMapper.map(orderDTO, OrderVO.class);
         log.info("orderVO : " + orderVO);
 
-        boolean isRegister = orderDAO.insertOrder(orderVO);
-        List<OrderItemDTO> dtoList = itemDTOList;
-        for (OrderItemDTO orderItemDTO : dtoList) {
-            OrderItemVO orderItemVO = modelMapper.map(orderItemDTO,OrderItemVO.class);
-            orderDAO.insertOrderItem(orderItemVO);
+        boolean isRegister = false;
+        if (orderDAO.insertOrder(orderVO)) {
+            List<OrderItemDTO> dtoList = itemDTOList;
+            for (OrderItemDTO orderItemDTO : dtoList) {
+                OrderItemVO orderItemVO = modelMapper.map(orderItemDTO,OrderItemVO.class);
+
+                if (orderDAO.insertOrderItem(orderItemVO)) { // 주문 상품 데이터 추가 성공시
+                    isRegister = orderDAO.updateAccumulatedOrders(orderItemVO.getPno(), orderItemVO.getCnt());
+                }
+            }
         }
 
         return isRegister;

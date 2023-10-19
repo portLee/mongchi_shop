@@ -14,12 +14,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @Log4j2
-@WebServlet("/modifyPassword")
+@WebServlet("/member/modifyPassword")
 public class ModifyPasswordController extends HttpServlet {
     private final MemberService service=MemberService.INSTANCE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession();
+        MemberDTO dto = (MemberDTO) session.getAttribute("loginInfo");
+        String emailId = dto.getEmailId();
+        req.setAttribute("emailId",emailId);
 
         req.getRequestDispatcher("/WEB-INF/member/modifyPassword.jsp").forward(req,resp);
     }

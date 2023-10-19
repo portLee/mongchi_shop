@@ -56,6 +56,30 @@ public class ReviewDAO {
         return reviewVOList;
     }
 
+    public List<ReviewVO> selectReviewByEmailId(String emailId) throws SQLException {
+        log.info("selectReview()...");
+
+        List<ReviewVO> reviewVOList = new ArrayList<>();
+        String sql = "SELECT * FROM `review` WHERE `emailId` = ? ";
+
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1,emailId);
+        @Cleanup ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next()){
+            ReviewVO reviewVO = ReviewVO.builder()
+                    .rno((resultSet.getInt("rno")))
+                    .pno(resultSet.getInt("pno"))
+                    .rate(resultSet.getInt("rate"))
+                    .content(resultSet.getString("content"))
+                    .addDate(resultSet.getString("addDate"))
+                    .fileName(resultSet.getString("fileName"))
+                    .build();
+            reviewVOList.add(reviewVO);
+        }
+        return reviewVOList;
+    }
+
     /* 리뷰를 ByPno를 통해 검색 */
     public ReviewVO selecetReviewByPno(int pno, int rno) throws SQLException {
         log.info("selectByPno()...");
@@ -92,13 +116,12 @@ public class ReviewDAO {
         preparedStatement.setInt(1,rno);
 
         return preparedStatement.executeUpdate() == 1;
-
     }
 
     /* 리뷰 수정 */
     public void updateReview(ReviewVO reviewVO) throws SQLException {
         log.info("updateReview()...");
-        String sql = "UPDATE review SET content = ? , addDate = now(), rate = ?, fileName = ? WHERE rno = ? ";
+        String sql = "UPDATE review SET content = ? , rate = ?, fileName = ? WHERE rno = ? ";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);

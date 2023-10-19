@@ -42,6 +42,7 @@
             overflow: hidden;
             pointer-events: none;
         }
+
     </style>
     <%-- 별점 style/ --%>
 </head>
@@ -100,7 +101,7 @@
                                             <input type="hidden" name="pno" value="${reviewVO.pno}">
                                             <c:set var="emailId" value="<%= emailId %>"/>
                                             <c:if test="${emailId eq reviewVO.emailId}">
-                                            <button class="btn btn-warning btn-sm"onclick="modfyReview(${reviewVO.rno}, ${reviewVO.pno})">수정</button>
+                                                <button class="btn btn-warning btn-sm"onclick="modfyReview(${reviewVO.rno}, ${reviewVO.pno})">수정</button>
                                             </c:if>
                                         </form>
                                     </td>

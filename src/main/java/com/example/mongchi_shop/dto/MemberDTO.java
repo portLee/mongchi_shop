@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 
 @Builder
 @Data
@@ -25,5 +23,6 @@ public class MemberDTO {
     private String addDate;
     private String birthday;
     private String uuid;
+    private String role;
 
 }

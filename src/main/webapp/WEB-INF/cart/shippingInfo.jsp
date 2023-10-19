@@ -103,7 +103,7 @@
 										<tbody>
 											<%
 												int totalAmount = 0;
-												for (CartDTO cart : cartDTOList) {;
+												for (CartDTO cart : cartDTOList) {
 													int price = cart.getUnitPrice() * cart.getCnt();
 													totalAmount += price;
 											%>
