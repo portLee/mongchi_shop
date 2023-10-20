@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.example.mongchi_shop.dto.CartDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.mongchi_shop.dto.MemberDTO" %>
@@ -111,14 +112,20 @@
 												<td>
 													<%= cart.getProductName() %> <strong class="mx-2">x</strong> <%= cart.getCnt() %>
 												</td>
-												<td><%= price %>원</td>
+												<td>
+													<fmt:formatNumber type="number" maxFractionDigits="3" value="<%= price %>"/>원
+												</td>
 											</tr>
 											<%
 												}
 											%>
 										<tr>
 											<td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-											<td class="text-black font-weight-bold"><strong><%= totalAmount %>원</strong></td>
+											<td class="text-black font-weight-bold">
+												<strong>
+													<fmt:formatNumber type="number" maxFractionDigits="3" value="<%= totalAmount %>"/>원
+												</strong>
+											</td>
 										</tr>
 										</tbody>
 									</table>
@@ -140,6 +147,8 @@
 			</form>
 		</div>
 	</div>
+
+	<jsp:include page="/WEB-INF/inc/footer.jsp" />
 
 	<!-- 다음 주소 검색 api -->
 	<script>

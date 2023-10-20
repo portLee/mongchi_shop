@@ -47,7 +47,6 @@ public class ModifyController extends HttpServlet {
                 .zipCode(req.getParameter("zipCode"))
                 .address01(req.getParameter("address01"))
                 .address02(req.getParameter("address02"))
-                .address03(req.getParameter("address03"))
                 .build();
 
         try {

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet("/qnaBoards/addAnswer")
+@WebServlet("/qnaBoard/addAnswer")
 public class QnABoardAddAnswerController extends HttpServlet {
     private final QnABoardService qnABoardService = QnABoardService.INSTANCE;
 

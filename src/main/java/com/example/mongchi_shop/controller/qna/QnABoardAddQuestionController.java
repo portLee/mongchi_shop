@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet("/qnaBoard/add")
+@WebServlet("/qnaBoard/addQuestion")
 public class QnABoardAddQuestionController extends HttpServlet {
     private final QnABoardService qnaBoardService=QnABoardService.INSTANCE;
 

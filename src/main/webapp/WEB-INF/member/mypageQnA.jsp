@@ -91,7 +91,7 @@
                                     <td>${qnaDto.questionContent}</td>
                                 </c:if>
                                 <td>${qnaDto.getQuestionDate()}</td>
-                                <td><a href="/qnaBoards/modifyQuestion?qno=${qnaDto.qno}&pno=${qnaDto.pno}" value="수정"/>수정하기</td>
+                                <td><a href="/qnaBoard/modifyQuestion?qno=${qnaDto.qno}&pno=${qnaDto.pno}" value="수정"/>수정하기</td>
                             </tr>
                         </c:forEach>
 
@@ -151,15 +151,6 @@
             </c:choose>
         </a>
     </c:forEach>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="row mb-5">
-                <div class="col-md-10">
-                    <button href="/qnaBoard/qnaList" id="btn-products" class="btn btn-outline-black btn-sm btn-block">QnA상세 페이지</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <c:if test="${thisBlock<totalBlock}">
         <a href="/qnaBoard/qnaList?currentPage=${lastPage+1}"/><span>다음</span></a>

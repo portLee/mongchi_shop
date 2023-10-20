@@ -13,8 +13,8 @@ import java.sql.SQLException;
 
 public class MemberDAO {
     public void insertMember(MemberVO memberVO) throws SQLException {
-        String sql = "insert into member (emailId, password, memberName, phone, birthday, addDate)" +
-                " values (?, ?, ?, ?, ?, now())";
+        String sql = "insert into member (emailId, password, memberName, phone, birthday, addDate, zipCode, address01, address02)" +
+                " values (?, ?, ?, ?, ?, now(), ?, ?, ?)";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -23,6 +23,9 @@ public class MemberDAO {
         preparedStatement.setString(3, memberVO.getMemberName());
         preparedStatement.setString(4, memberVO.getPhone());
         preparedStatement.setString(5, memberVO.getBirthday());
+        preparedStatement.setString(6, memberVO.getZipCode());
+        preparedStatement.setString(7, memberVO.getAddress01());
+        preparedStatement.setString(8, memberVO.getAddress02());
         preparedStatement.executeUpdate();
     }
     public MemberVO getWithPassword(String emailId, String password) throws SQLException {
@@ -65,7 +68,7 @@ public class MemberDAO {
     }
     public void updateMember(MemberVO memberVO) throws SQLException {
         // 자동로그인 기능 사용해서 임의의 문자열이 생성된 경우, 해당 memberId의 데이터에 업데이트
-        String sql="UPDATE member SET phone = ? , zipCode = ?, address01 = ?, address02 = ?,address03 = ?  WHERE emailId=?";
+        String sql="UPDATE member SET phone = ? , zipCode = ?, address01 = ?, address02 = ? WHERE emailId=?";
         @Cleanup Connection connection=ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
 
@@ -73,8 +76,7 @@ public class MemberDAO {
         preparedStatement.setString(2, memberVO.getZipCode());
         preparedStatement.setString(3, memberVO.getAddress01());
         preparedStatement.setString(4, memberVO.getAddress02());
-        preparedStatement.setString(5, memberVO.getAddress03());
-        preparedStatement.setString(6, memberVO.getEmailId());
+        preparedStatement.setString(5, memberVO.getEmailId());
         preparedStatement.executeUpdate();
     }
 

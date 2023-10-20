@@ -163,12 +163,12 @@
                       ${qnaDto.questionContent}
                         <c:if test="${qnaDto.emailId eq sessionEmailId}">
                           <c:if test="${qnaDto.answered==false}">
-                            <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 수정</a>
+                            <a href="/qnaBoard/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 수정</a>
                           </c:if>
-                          <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 삭제&nbsp;</a>
+                          <a href="/qnaBoard/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 삭제&nbsp;</a>
                         </c:if>
                         <c:if test="${role eq 'qna'}">
-                          <a href="/qnaBoards/addAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a>
+                          <a href="/qnaBoard/addAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a>
                         </c:if>
                   </li>
                   <eli class="email"></eli>
@@ -179,7 +179,7 @@
                       <i class="fa-regular fa-comment fa-flip-horizontal"></i>
                       ${qnaDto.answerContent} <span style="color: gray">${answerDateSplit}</span>
                       <c:if test="${role eq 'qna'}">
-                        <a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 수정</a>
+                        <a href="/qnaBoard/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 수정</a>
                       </c:if>
                     </li>
                   </c:if>
@@ -190,9 +190,9 @@
                     <li>
                         ${qnaDto.questionContent}
                           <c:if test="${qnaDto.answered==false}">
-                            <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 수정</a>
+                            <a href="/qnaBoard/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 수정</a>
                           </c:if>
-                          <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 삭제&nbsp;</a>
+                          <a href="/qnaBoard/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 삭제&nbsp;</a>
                     </li>
                     <c:if test="${qnaDto.answered==true}">
                       <hr>
@@ -205,12 +205,12 @@
 
                   <c:if test="${(role eq 'qna')}">
                     <li>${qnaDto.questionContent}
-                      <a href="/qnaBoards/addAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a></li>
+                      <a href="/qnaBoard/addAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a></li>
                     <c:if test="${qnaDto.answered==true}">
                       <hr>
                       <li>
                         <i class="fa-regular fa-comment fa-flip-horizontal"></i>
-                          ${qnaDto.answerContent} <span>${qnaDto.answerDate}<a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 수정</a></span>
+                          ${qnaDto.answerContent} <span>${qnaDto.answerDate}<a href="/qnaBoard/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 수정</a></span>
                       </li>
                     </c:if>
                   </c:if>
@@ -223,7 +223,7 @@
             </c:if>
       </c:forEach>
           <hr>
-          <button class="btn btn-primary-hover-outline" style="background: #3b5d50 !important; padding: 10px 20px !important;"><a style="text-decoration: none" class="text-white" href="/qnaBoard/add?pno=<%=pno%>&productName=${productName}">문의 등록</a></button>
+          <button class="btn btn-primary-hover-outline" style="background: #3b5d50 !important; padding: 10px 20px !important;"><a style="text-decoration: none" class="text-white" href="/qnaBoard/addQuestion?pno=<%=pno%>&productName=${productName}">문의 등록</a></button>
           <button class="btn btn-primary-hover-outline" style="padding: 10px 20px !important;"><a href="/products/product?pno=<%=pno%>" style="text-decoration: none;" class="text-white">뒤로 가기</a></button>
 
         </div>
@@ -236,48 +236,48 @@
 
 
 <!-- 페이지 -->
-<div class="paging">
+<div>
   <c:set var="currentPage" value="<%=currentPage%>"/>
 
-  <a href="/qnaBoards?pno=<%=pno%>&currentPage=1" style="text-decoration: none"/><span>처음</span></a>
-  <c:if test="${thisBlock>1}">
-    <a href="/qnaBoards?pno=<%=pno%>&currentPage=${firstPage-1}" style="text-decoration: none"/><span>이전</span></a>
-  </c:if>
-  <c:forEach var="i" begin="<%=firstPage%>" end="<%=lastPage%>">
-    <a href="/qnaBoards?pno=<%=pno%>&currentPage=${i}" style="text-decoration: none">
-        <%--                    <a href="./boardList.do?pageNum=${i}&items=<%=items%>&text=<%=text%>">--%>
-      <c:choose>
-        <c:when test="${currentPage==i}">
-          <font color="#2f4f4f"><b>[${i}]</b></font>
-        </c:when>
-        <c:otherwise>
-          <font color="#696969">[${i}]</font>
-        </c:otherwise>
-      </c:choose>
-    </a>
-  </c:forEach>
+  <ul class="pagination flex-wrap justify-content-center">
+    <c:if test="${thisBlock>1}">
+      <li class="page-item">
+        <a class="page-link" data-num="<%=firstPage-1%>">prev</a>
+      </li>
+    </c:if>
+    <c:forEach var="num" begin="<%=firstPage%>" end="<%=lastPage%>">
+      <li class="page-item ${currentPage == num ? "active" : ""}">
+        <a class="page-link" data-num="${num}">${num}</a>
+      </li>
+    </c:forEach>
+    <c:if test="<%=thisBlock<totalBlock%>">
+      <li class="page-item">
+        <a href="#" class="page-link" data-num="<%=lastPage+1%>">next</a>
+      </li>
+    </c:if>
+  </ul>
+</div>
 
-  <c:if test="${thisBlock<totalBlock}">
-    <a href="/qnaBoards?pno=<%=pno%>&currentPage=${lastPage+1}" style="text-decoration: none"/><span>다음</span></a>
-  </c:if>
-  <a href="/qnaBoards?pno=<%=pno%>&currentPage=${totalPage}" style="text-decoration: none"/><span>마지막</span></a>
+<script>
+  document.querySelector('.pagination').addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const target = e.target;
+    if(target.tagName !== 'A') {
+      return;
+    }
+    const num = target.getAttribute('data-num');
+    self.location = `/qnaBoards?pno=<%=pno%>&productName=${productName}&currentPage=\${num}`;
+  });
+</script>
 
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/tiny-slider.js"></script>
   <script src="/js/custom.js"></script>
   <jsp:include page="../inc/footer.jsp"/>
 
-  <style>
-    .paging a:hover {
-      color: seagreen;
-      font-weight: bold;
-    }
-  </style>
 </div>
-
-<script>
-
-</script>
 
 </body>
 </html>

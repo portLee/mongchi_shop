@@ -70,8 +70,8 @@ public class QnABoardDAO {
         preparedStatement.setInt(3, limit);
         @Cleanup ResultSet resultSet=preparedStatement.executeQuery();
 
-        ArrayList<QnABoardVO> qnaList=new ArrayList<>();
-        if(resultSet.next()) {
+        ArrayList<QnABoardVO> qnaList = new ArrayList<>();
+        while (resultSet.next()) {
             QnABoardVO qnABoardVO = QnABoardVO.builder()
                     .pno(resultSet.getInt("pno"))
                     .questionDate(resultSet.getString("questionDate"))

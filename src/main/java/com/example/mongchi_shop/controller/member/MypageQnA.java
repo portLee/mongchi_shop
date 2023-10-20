@@ -35,8 +35,6 @@ public class MypageQnA extends HttpServlet {
             currentPage = Integer.parseInt(req.getParameter("currentPage"));
         }
 
-//        int pno = Integer.parseInt(req.getParameter("pno"));
-//        log.info(pno);
 
 
         int totalRecord = 0;

@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     List<CartDTO> cartDTOList = (List<CartDTO>) session.getAttribute("cartDTOList");
 %>
@@ -92,7 +93,9 @@
                                     </td>
                                     <td>
                                         <input type="hidden" name="unitPrice" value="<%= cart.getUnitPrice() %>">
-                                        <span class="unitPrice"><%= cart.getUnitPrice() %></span>원
+                                        <span class="unitPrice">
+                                            <fmt:formatNumber type="number" maxFractionDigits="3" value="<%= cart.getUnitPrice() %>"/>
+                                        </span>원
                                     </td>
                                     <td>
                                         <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
@@ -106,7 +109,11 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td><span class="price"><%= cart.getUnitPrice() * cart.getCnt() %></span>원</td>
+                                    <td>
+                                        <span class="price">
+                                            <fmt:formatNumber type="number" maxFractionDigits="3" value="<%= cart.getUnitPrice() * cart.getCnt() %>"/>
+                                        </span>원
+                                    </td>
                                 </tr>
                             <%
                                 }
@@ -140,7 +147,9 @@
                                     <span class="text-black">Total</span>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <strong class="text-black total"><%= total %>원</strong>
+                                    <strong class="text-black total">
+                                        <fmt:formatNumber type="number" maxFractionDigits="3" value="<%= total %>"/>원
+                                    </strong>
                                 </div>
                             </div>
 
@@ -155,6 +164,8 @@
             </div>
         </div>
     </div>
+
+    <jsp:include page="/WEB-INF/inc/footer.jsp" />
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>

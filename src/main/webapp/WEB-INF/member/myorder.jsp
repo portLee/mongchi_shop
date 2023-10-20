@@ -1,6 +1,4 @@
-<%@ page import="com.example.mongchi_shop.dto.ProductDTO" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.example.mongchi_shop.dto.CartDTO" %>
 <%@ page import="com.example.mongchi_shop.dto.OrderDTO" %>
 <%@ page import="com.example.mongchi_shop.dto.OrderItemDTO" %><%--
   Created by IntelliJ IDEA.
@@ -79,7 +77,7 @@
                                     <h2 class="h5 text-black"><%= order.getOrderStatus() %></h2>
                                 </td>
                                 <td>
-                                    <button>리뷰작성</button>
+                                    <a href="/review/add?pno=<%= itemDTO.getPno() %>">리뷰작성</a>
                                 </td>
                             </tr>
                             <%
@@ -94,15 +92,6 @@
             </form>
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row mb-5">
-                    <div class="col-md-10">
-                        <button href="/cart/list" id="btn-products" class="btn btn-outline-black btn-sm btn-block">장바구니 상세페이지</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <!-- qna ----------------------------------------------->

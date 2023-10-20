@@ -28,7 +28,7 @@
         </div>
         <div class="form-group">
             <label>비밀번호 변경</label>
-            <p><a href="/modifyPassword">비밀번호 변경</a></p>
+            <p><a href="/member/modifyPassword">비밀번호 변경</a></p>
         </div>
         <div class="form-group">
             <label >이름</label>

@@ -35,7 +35,7 @@
                     <div class="col-md-12">
                         <h3 class="h5 mb-4 text-center"></h3>
 
-                        <form action="/qnaBoard/add" method="post">
+                        <form action="/qnaBoard/addQuestion" method="post">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">

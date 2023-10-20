@@ -115,6 +115,8 @@
 </div>
 <!-- 주요 내용 섹션/ -->
 
+<jsp:include page="/WEB-INF/inc/footer.jsp" />
+
 <script>
     // 삭제 여부를 확인하는 JavaScript 함수
     function confirmDelete() {

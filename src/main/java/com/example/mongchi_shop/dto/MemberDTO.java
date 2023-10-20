@@ -19,7 +19,6 @@ public class MemberDTO {
     private String zipCode;
     private String address01;
     private String address02;
-    private String address03;
     private String addDate;
     private String birthday;
     private String uuid;

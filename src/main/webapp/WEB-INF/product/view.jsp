@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginInfo");
     String emailId = null;
@@ -16,6 +17,7 @@
 %>
 <html>
 <head>
+    <link rel="stylesheet" href="/css/review_star.css">
     <title>상품정보</title>
 </head>
 <body>
@@ -66,7 +68,12 @@
                     <span>주문수 <b>${productDTO.accumulatedOrders}</b></span>
                     <span>리뷰수 <b>${productDTO.reviewCount}</b></span>
                 </p>
-                <h3 class="text-primary">총 상품금액 <span class="price">${productDTO.unitPrice}</span>원</h3>
+                <h3 class="text-primary">
+                    총 상품금액
+                    <span class="price">
+                        <fmt:formatNumber type="number" maxFractionDigits="3" value="${productDTO.unitPrice}"/>
+                    </span>원
+                </h3>
 
                 <div class="col-md-12">
                     <div class="mt-4">
@@ -83,33 +90,7 @@
     </div>
 
     <!-- 리뷰 목록 UI 구현 -->
-    <%-- 별점 style --%>
-    <style>
-        .star {
-            position: relative;
-            font-size: 2rem;
-            color: #ddd;
-            word-wrap: normal;
-        }
-        .star input {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-        .star span {
-            width: 0;
-            height: 56px;
-            position: absolute;
-            left: 0;
-            color: red;
-            overflow: hidden;
-            pointer-events: none;
-        }
-    </style>
-    <%-- 별점 style/ --%>
+
     <!-- 리뷰 목록 및 작성 섹션 -->
     <div class="container mt-5" style="max-width: 1200px;">
 
@@ -153,27 +134,6 @@
                                         </span>
                                     </td>
                                     <td>${reviewVO.addDate}</td>
-                                    <!-- 리뷰 수정, 삭제 마이페이지로 이동 -->
-<%--                                    <td>--%>
-<%--                                        <form action="/review/modify" method="get">--%>
-<%--                                            <input type="hidden" name="rno" value="${reviewVO.rno}">--%>
-<%--                                            <input type="hidden" name="pno" value="${reviewVO.pno}">--%>
-<%--                                            <c:set var="emailId" value="<%= emailId %>"/>--%>
-<%--                                            <c:if test="${emailId eq reviewVO.emailId}">--%>
-<%--                                                <button class="btn btn-warning btn-sm" onclick="modfyReview(${reviewVO.rno}, ${reviewVO.pno})">수정</button>--%>
-<%--                                            </c:if>--%>
-<%--                                        </form>--%>
-<%--                                    </td>--%>
-<%--                                    <td>--%>
-<%--                                        <form action="/review/remove" method="get" onsubmit="return confirmDelete()">--%>
-<%--                                            <input type="hidden" name="pno" value="${reviewVO.pno}">--%>
-<%--                                            <input type="hidden" name="rno" value="${reviewVO.rno}">--%>
-<%--                                            <c:set var="emailId" value="<%= emailId %>"/>--%>
-<%--                                            <c:if test="${emailId eq reviewVO.emailId}">--%>
-<%--                                                <button type="submit" class="btn btn-danger btn-sm">삭제</button>--%>
-<%--                                            </c:if>--%>
-<%--                                        </form>--%>
-<%--                                    </td>--%>
                                 </tr>
                             </c:forEach>
                             <!-- 리뷰 목록 반복문 끝 -->
@@ -185,38 +145,8 @@
             </div>
         </div>
     </div>
-    <!-- 리뷰 목록 섹션 끝 -->
 
-            <!-- 리뷰 등록 페이지 분리 -->
-<%--        <!-- 리뷰 작성 섹션 -->--%>
-<%--        <div class="row mt-5">--%>
-<%--            <div class="col-lg-12">--%>
-
-<%--                <!-- 리뷰 작성 폼 -->--%>
-<%--                <div class="card border bg-white review-form">--%>
-<%--                    <div class="card-body">--%>
-<%--                        <h2 class="card-title review-header">리뷰 작성</h2>--%>
-<%--                        <form id="reviewForm" action="<%= String.format("/review/add?pno=%s", request.getParameter("pno")) %>" method="post" enctype="multipart/form-data">--%>
-<%--                            <div class="form-group">--%>
-<%--                            <span class="star">--%>
-<%--                                ★★★★★--%>
-<%--                                <span class="rate">★★★★★</span>--%>
-<%--                                <input class="rate" type="range" value="1" step="1" min="1" max="10">--%>
-<%--                            </span>--%>
-<%--                                <textarea class="form-control mt-3" name="content" rows="3" placeholder="리뷰를 작성하세요"></textarea>--%>
-<%--                            </div>--%>
-<%--                            <input type="hidden" name="rate">--%>
-<%--                            <input type="file" name="fileName" class="form-control mt-3" style="height: 35px">--%>
-<%--                            <div class="form-group mt-3 text-right d-flex justify-content-end">--%>
-<%--                                <button type="submit" class="btn btn-primary add-review-btn">리뷰 작성</button>--%>
-<%--                            </div>--%>
-<%--                        </form>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-
-<%--            </div>--%>
-<%--        </div>--%>
-
+    <jsp:include page="/WEB-INF/inc/footer.jsp" />
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
