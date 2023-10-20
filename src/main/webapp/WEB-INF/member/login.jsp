@@ -9,22 +9,18 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/inc/menu.jsp" />
-<!-- 추가 -->
-<div class="hero">
+<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
     <div class="container">
-        <div class="row justify-content-between">
-            <div class="col-lg-5">
-                <div class="intro-excerpt">
-                    <h1>로그인</h1>
-                </div>
-            </div>
-            <div class="col-lg-7">
+        <a class="navbar-brand"> 로그인 <span>.</span></a>
 
-            </div>
-        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
     </div>
-</div>
-
+</nav>
 <div class="container">
     <c:if test="${param.result == 'error'}">
         <div class="alert alert-danger">

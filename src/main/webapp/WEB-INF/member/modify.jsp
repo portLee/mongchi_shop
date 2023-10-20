@@ -8,7 +8,19 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/inc/menu.jsp" />
-<div class="container">
+<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+    <div class="container">
+        <a class="navbar-brand"> 정보수정 <span>.</span></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+    </div>
+</nav>
+<div class="container" style="margin-top: 80px">
     <form action="/member/modify" method="post">
         <div class="form-group">
             <label>이메일</label>
@@ -32,12 +44,12 @@
         </div>
         <div class="form-group">
             <label for="zipCode">우편번호</label>
-            <input type="text" name="zipCode" id="zipCode" class="form-control" placeholder="우편번호" value="${dto.zipCode}">
+            <input type="text" name="zipCode" id="zipCode" class="form-control" placeholder="우편번호" value="${dto.zipCode}" readonly>
             <input type="button" name="findCode" style="margin-top: 20px" class="btn btn-primary" value="우편번호 찾기"/>
         </div>
         <div class="form-group">
             <label for="address01">번지수/도로명</label>
-            <input type="text" name="address01" value="${dto.address01}" id="address01" class="form-control" placeholder="주소">
+            <input type="text" name="address01" value="${dto.address01}" id="address01" class="form-control" placeholder="주소" readonly>
         </div>
         <div class="form-group">
             <label for="address02">상세주소</label>

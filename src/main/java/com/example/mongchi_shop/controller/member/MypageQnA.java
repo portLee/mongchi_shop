@@ -35,14 +35,14 @@ public class MypageQnA extends HttpServlet {
             currentPage = Integer.parseInt(req.getParameter("currentPage"));
         }
 
-//        int pno = Integer.parseInt(req.getParameter("pno"));
+        int pno = Integer.parseInt(req.getParameter("pno"));
 //        log.info(pno);
 
 
         int totalRecord = 0;
 
         try {
-//            totalRecord = qnaBoardService.getMyQnAListCount(emailId);
+            totalRecord = qnaBoardService.getMyQnAListCount(emailId);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -51,7 +51,7 @@ public class MypageQnA extends HttpServlet {
         List<QnABoardDTO> qnABoardDTOList = null;
 
         try {
-//            qnABoardDTOList = qnaBoardService.getQnABoardByEmailId(emailId, currentPage, limit);
+            qnABoardDTOList = qnaBoardService.getQnABoardByEmailId(emailId, currentPage, limit);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

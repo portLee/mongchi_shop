@@ -56,6 +56,7 @@
                             <th class="product-name">Product</th>
                             <th class="product-price">Price</th>
                             <th class="product-quantity">Quantity</th>
+                            <th class="product-quantity">TotalPrice</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -67,13 +68,14 @@
                         %>
                         <tr>
                             <td class="product-thumbnail">
-                                <img src="<%= cart.getFileName() %>" alt="Image" class="img-fluid">
+                                <img src="<%= cart.getFileName() %>" alt="Image" class="img-fluid" style="width: 100px">
                             </td>
                             <td class="product-name">
                                 <h2 class="h5 text-black"><%= cart.getProductName() %></h2>
                             </td>
                             <td><%= cart.getUnitPrice() %>원</td>
                             <td><%= cart.getCnt() %></td>
+                            <td><%= cart.getCnt() * cart.getUnitPrice() %></td>
                         </tr>
                         <%
                             }

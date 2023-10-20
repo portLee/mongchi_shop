@@ -48,6 +48,6 @@ public class QnABoardAddQuestionController extends HttpServlet {
             throw new ServletException("ADD error");
         }
 
-        resp.sendRedirect("/qnaBoards?pno=" + pno);
+        resp.sendRedirect("/products/product?pno=" + pno);
     }
 }

@@ -46,58 +46,62 @@
 <div class="untree_co-section before-footer-section">
     <div class="container">
         <div class="row mb-5">
-            <div class="site-blocks-table">
-                <table class="table">
-                    <thead>
+            <form class="col-md-12" name="frmCart" method="get">
+                <div class="site-blocks-table">
+                    <table class="table">
+                        <thead>
 
-                    <tr>
-                        <th class="product-thumbnail">상품정보</th>
-                        <th class="product-name">주문일자</th>
-                        <th class="product-quantity">주문번호</th>
-                        <th class="product-quantity">주문금액(수량)</th>
-                        <th class="product-quantity">주문상태</th>
-                        <th class="product-quantity">비고</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                        <tr>
+                            <th class="product-thumbnail" colspan="2">상품정보</th>
+                            <th class="product-name">주문일자</th>
+                            <th class="product-quantity">주문번호</th>
+                            <th class="product-quantity">주문금액(수량)</th>
+                            <th class="product-quantity">주문상태</th>
+                            <th class="product-quantity">비고</th>
+                        </tr>
+                        </thead>
+                        <tbody>
 
-                    <%
-                        for (OrderDTO order : orderDTOList) {
-                    %>
-                    <%
-                        for (OrderItemDTO itemDTO : order.getItemDTOList()) {
-                    %>
-                    <tr>
-                        <td class="product-thumbnail">
-                            <img src="<%= itemDTO.getFileName() %>">
-                            <span><%= itemDTO.getProductName() %></span>
-                        </td>
-                        <td class="product-name">
-                            <h2 class="h5 text-black"><%= order.getOrderDate() %></h2>
-                        </td>
-                        <td class="product-name">
-                            <h2 class="h5 text-black"><%= order.getOrderId() %></h2>
-                        </td>
-                        <td class="product-name">
-                            <h2 class="h5 text-black"><%= itemDTO.getUnitPrice() * itemDTO.getCnt() %>원</h2>
-                            <span><%= itemDTO.getCnt() %>개</span>
-                        </td>
-                        <td class="product-name">
-                            <h2 class="h5 text-black"><%= order.getOrderStatus() %></h2>
-                        </td>
-                        <td>
-                            <a href="/review/add?pno=<%= itemDTO.getPno() %>">리뷰작성</a>
-                        </td>
-                    </tr>
-                    <%
-                        }
-                    %>
-                    <%
-                        }
-                    %>
-                    </tbody>
-                </table>
-            </div>
+                        <%
+                            for (OrderDTO order : orderDTOList) {
+                        %>
+                            <%
+                                for (OrderItemDTO itemDTO : order.getItemDTOList()) {
+                            %>
+                            <tr>
+                                <td class="product-thumbnail">
+                                    <img src="<%= itemDTO.getFileName() %> " style="width: 100px">
+                                </td>
+                                <td class="product-thumbnail">
+                                    <span><%= itemDTO.getProductName() %></span>
+                                </td>
+                                <td class="product-name">
+                                    <h2 class="h5 text-black"><%= order.getOrderDate() %></h2>
+                                </td>
+                                <td class="product-name">
+                                    <h2 class="h5 text-black"><%= order.getOrderId() %></h2>
+                                </td>
+                                <td class="product-name">
+                                    <h2 class="h5 text-black"><%= itemDTO.getUnitPrice() * itemDTO.getCnt() %>원</h2>
+                                    <span><%= itemDTO.getCnt() %>개</span>
+                                </td>
+                                <td class="product-name">
+                                    <h2 class="h5 text-black"><%= order.getOrderStatus() %></h2>
+                                </td>
+                                <td>
+                                    <button>리뷰작성</button>
+                                </td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        <%
+                            }
+                        %>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
         </div>
 
         <div class="row">

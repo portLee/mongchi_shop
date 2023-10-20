@@ -16,35 +16,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/review_star.css">
     <title>리뷰</title>
-    <%-- 별점 style --%>
-    <style>
-        .star {
-            position: relative;
-            font-size: 2rem;
-            color: #ddd;
-            word-wrap: normal;
-        }
-        .star input {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            left: 0;
-            opacity: 0;
-            cursor: pointer;
-        }
-        .star span {
-            width: 0;
-            height: 56px;
-            position: absolute;
-            left: 0;
-            color: red;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-    </style>
-    <%-- 별점 style/ --%>
 </head>
 
 <body>
