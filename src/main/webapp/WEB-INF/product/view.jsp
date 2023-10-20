@@ -92,7 +92,7 @@
     <!-- 리뷰 목록 UI 구현 -->
 
     <!-- 리뷰 목록 및 작성 섹션 -->
-    <div class="container mt-5" style="max-width: 1200px;">
+    <div class="container mt-5 mb-5" style="max-width: 1200px;">
 
         <!-- 리뷰 목록 헤더 -->
         <div class="row">

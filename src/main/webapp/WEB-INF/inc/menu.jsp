@@ -38,34 +38,18 @@
 <script>
     // 메뉴 클릭 시 active 클래스 추가
     document.addEventListener('DOMContentLoaded', function () {
-        const navItems = document.querySelectorAll('.nav a');
+        const navItems = document.querySelectorAll('#navbarsFurni a');
         const ACTIVE_CLASSNAME = 'active';
-        const sort = searchParam('sort');
 
-        if (sort != null) {
-            for (const item of navItems) {
-                let href = item.getAttribute('href');
-
-                if (href.includes('&')) {
-                    href = href.split('&')[0];
-                    console.log(href);
-                }
-
-                const splits = href.split('=');
-                if (sort === splits[1]) {
-                    item.classList.add(BOLD_CLASSNAME);
-                    break;
-                }
+        window.location.pathname;
+        for (const item of navItems) {
+            let href = item.getAttribute('href');
+            if (window.location.pathname == href) {
+                console.log(item);
+                item.parentElement.classList.add(ACTIVE_CLASSNAME);
+                break;
             }
         }
-        else {
-            console.log(navItems[0]);
-            navItems[0].classList.add(BOLD_CLASSNAME);
-        }
-
-        function searchParam(key) {
-            return new URLSearchParams(location.search).get(key);
-        };
     });
 </script>
 
@@ -95,15 +79,15 @@
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-                <li><a class="nav-link" href="/products">Product</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products">Product</a></li>
                 <c:choose>
                     <c:when test="${empty sessionEmailId }">
-                        <li><a class="nav-link" href="/login">LogIn</a></li>
-                        <li><a class="nav-link" href="/addMember">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login">LogIn</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/addMember">Register</a></li>
                     </c:when>
                     <c:otherwise>
-                        <li><a class="nav-link">[${sessionMemberName}&nbsp;님]</a></li>
-                        <li><a class="nav-link" href="/logout">LogOut</a></li>
+                        <li class="nav-item"><a class="nav-link">[${sessionMemberName}&nbsp;님]</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout">LogOut</a></li>
                     </c:otherwise>
                 </c:choose>
 

@@ -80,7 +80,7 @@
             <div class="col-md-6">
                 <div class="row mb-5">
                     <div class="col-md-10">
-                        <button href="/cart/list" id="btn-products" class="btn btn-outline-black btn-sm btn-block">장바구니 상세페이지</button>
+                        <a href="/cart/list" id="btn-products" class="btn btn-outline-black btn-sm btn-block">장바구니 상세페이지</a>
                     </div>
                 </div>
             </div>
