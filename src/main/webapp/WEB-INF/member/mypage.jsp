@@ -29,17 +29,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarsFurni">
-            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                <li class="nav-item active">
-                    <a class="nav-link" id="cart" href="/member/mypage"> 장바구니 </a>
-                </li>
-                <li><a class="nav-link" href="/member/myQnA"> QnA </a></li>
-                <li><a class="nav-link" href="/review/myReview"> 나의 리뷰 </a></li>
-                <li><a class="nav-link" href="/member/modify"> 내정보수정 </a></li>
-                <li><a class="nav-link" href="/member/myorder"> 내구매목록 </a></li>
-            </ul>
-        </div>
+       <jsp:include page="/WEB-INF/inc/mypageNavi.jsp" />
     </div>
 </nav>
 

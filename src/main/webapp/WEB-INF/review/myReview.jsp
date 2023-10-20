@@ -41,20 +41,18 @@
 
 <body>
 <jsp:include page="/WEB-INF/inc/menu.jsp" />
-<div class="hero">
-    <div class="container">
-        <div class="row justify-content-between">
-            <div class="col-lg-5">
-                <div class="intro-excerpt">
-                    <h1>내가 쓴 리뷰목록</h1>
-                </div>
-            </div>
-            <div class="col-lg-7">
+<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
-            </div>
-        </div>
+    <div class="container">
+        <a class="navbar-brand">나의 리뷰 목록<span>.</span></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <jsp:include page="/WEB-INF/inc/mypageNavi.jsp" />
     </div>
-</div>
+</nav>
 
 <!-- 주요 내용 섹션 -->
 <div class="container mt-4">

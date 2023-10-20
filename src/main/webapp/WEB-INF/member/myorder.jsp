@@ -28,17 +28,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarsFurni">
-            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                <li class="nav-item active">
-                    <a class="nav-link" id="cart" href="/member/mypage"> 장바구니 </a>
-                </li>
-                <li><a class="nav-link" href="/member/myQnA"> QnA </a></li>
-                <li><a class="nav-link" href="/review/myReview"> 나의 리뷰 </a></li>
-                <li><a class="nav-link" href="/member/modify"> 내정보수정 </a></li>
-                <li><a class="nav-link" href="/member/myorder"> 내구매목록 </a></li>
-            </ul>
-        </div>
+        <jsp:include page="/WEB-INF/inc/mypageNavi.jsp" />
     </div>
 </nav>
 
@@ -55,9 +45,9 @@
                             <th class="product-thumbnail" colspan="2">상품정보</th>
                             <th class="product-name">주문일자</th>
                             <th class="product-quantity">주문번호</th>
-                            <th class="product-quantity">주문금액(수량)</th>
-                            <th class="product-quantity">주문상태</th>
-                            <th class="product-quantity">비고</th>
+                            <th class="product-quantity" style="width: 200px">주문금액(수량)</th>
+                            <th class="product-quantity" style="width: 200px">주문상태</th>
+                            <th class="product-quantity" style="width: 200px">비고</th>
                         </tr>
                         </thead>
                         <tbody>
