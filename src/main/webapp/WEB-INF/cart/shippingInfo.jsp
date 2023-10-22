@@ -26,7 +26,7 @@
 			<div class="row justify-content-between">
 				<div class="col-lg-5">
 					<div class="intro-excerpt">
-						<h1>주문 정보</h1>
+						<h1 class="font-apply">주문 정보</h1>
 					</div>
 				</div>
 				<div class="col-lg-7">
@@ -42,7 +42,7 @@
 			<form action="/cart/shippingInfo" method="post">
 				<div class="row">
 					<div class="col-md-6 mb-5 mb-md-0">
-						<h2 class="h3 mb-3 text-black">배송지 정보</h2>
+						<h2 class="h3 mb-3 text-black font-apply">배송지 정보</h2>
 						<div class="p-3 p-lg-5 border bg-white">
 							<div class="form-group row">
 								<div class="col-md-12">
@@ -94,7 +94,7 @@
 
 						<div class="row mb-5">
 							<div class="col-md-12">
-								<h2 class="h3 mb-3 text-black">주문 정보</h2>
+								<h2 class="h3 mb-3 text-black font-apply">주문 정보</h2>
 								<div class="p-3 p-lg-5 border bg-white">
 									<table class="table site-block-order-table mb-5">
 										<thead>

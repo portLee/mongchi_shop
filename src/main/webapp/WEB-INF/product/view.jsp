@@ -30,7 +30,7 @@
             <div class="row justify-content-between">
                 <div class="col-lg-5">
                     <div class="intro-excerpt">
-                        <h1>상품정보</h1>
+                        <h1 class="font-apply">상품정보</h1>
                     </div>
                 </div>
                 <div class="col-lg-7">
@@ -42,8 +42,7 @@
     <!-- End Hero Section -->
 
     <div class="container" style="max-width: 1200px;">
-        <h1 class="mt-5 text-black">상품 상세 페이지</h1>
-        <div class="row mt-3 border bg-white">
+        <div class="row mt-5 border bg-white">
             <div class="col-md-6">
                 <!-- 상품 이미지 -->
                 <img src="${productDTO.fileName}" alt="상품 이미지" class="img-fluid">
@@ -97,7 +96,7 @@
         <!-- 리뷰 목록 헤더 -->
         <div class="row">
             <div class="col">
-                <h1 class="mt-5 text-black">해당 상품리뷰</h1>
+                <h1 class="mt-5 text-black font-apply">상품 리뷰</h1>
             </div>
         </div>
 

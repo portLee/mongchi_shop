@@ -1,20 +1,42 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
-<div class="collapse navbar-collapse" id="navbarsFurni">
-    <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-        <li class="nav-item active">
-            <a class="nav-link" id="cart" href="/member/mypage"> 장바구니 </a>
+
+<link rel="stylesheet" href="/css/effect.css">
+
+<script>
+    // 메뉴 클릭 시 active 클래스 추가
+    document.addEventListener('DOMContentLoaded', function () {
+        const navItems = document.querySelectorAll('.justify-content-end a');
+        const BOLD_CLASSNAME = 'bold';
+
+        window.location.pathname;
+        for (const item of navItems) {
+            let href = item.getAttribute('href');
+            if (window.location.pathname == href) {
+                console.log(item);
+                item.classList.add(BOLD_CLASSNAME);
+                break;
+            }
+        }
+    });
+</script>
+
+<nav class="row mb-5">
+    <ul class="nav justify-content-end">
+        <li class="nav-item">
+            <a class="nav-link text-black" href="/member/mypage">장바구니</a>
         </li>
-        <li><a class="nav-link" href="/member/myQnA"> QnA </a></li>
-        <li><a class="nav-link" href="/review/myReview"> 나의 리뷰 </a></li>
-        <li><a class="nav-link" href="/member/modify"> 내정보수정 </a></li>
-        <li><a class="nav-link" href="/member/myorder"> 내구매목록 </a></li>
+        <li class="nav-item">
+            <a class="nav-link text-black" href="/member/myQnA">QnA</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-black" href="/review/myReview">나의 리뷰</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-black" href="/member/modify">정보수정</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-black" href="/member/myorder">주문내역</a>
+        </li>
     </ul>
-</div>
-</body>
-</html>
+</nav>

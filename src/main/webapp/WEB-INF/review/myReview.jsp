@@ -23,20 +23,7 @@
         body {
             height: 1500px;
         }
-
-        .review-container .table {
-            width: 100%;
-            border: none; /* Remove table border */
-        }
-
-        /* Increase padding for better content area */
-        .review-container .table th,
-        .review-container .table td {
-            padding: 15px;
-        }
-
     </style>
-    <%-- 별점 style/ --%>
 </head>
 
 <body>
@@ -45,17 +32,12 @@
 
     <div class="container">
         <a class="navbar-brand">나의 리뷰 목록<span>.</span></a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <jsp:include page="/WEB-INF/inc/mypageNavi.jsp" />
     </div>
 </nav>
 
 <!-- 주요 내용 섹션 -->
 <div class="container mt-4">
+    <jsp:include page="/WEB-INF/inc/mypageNavi.jsp" />
     <div class="row">
         <!-- 리뷰 목록 -->
         <div class="col-xl-12 mx-5">

@@ -23,16 +23,14 @@
 <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
     <div class="container">
         <a class="navbar-brand">주문내역<span>.</span></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <jsp:include page="/WEB-INF/inc/mypageNavi.jsp" />
     </div>
 </nav>
 
 
 <div class="untree_co-section before-footer-section">
     <div class="container">
+        <jsp:include page="/WEB-INF/inc/mypageNavi.jsp" />
+
         <div class="row mb-5">
             <form class="col-md-12" name="frmCart" method="get">
                 <div class="site-blocks-table">

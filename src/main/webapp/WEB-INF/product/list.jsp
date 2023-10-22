@@ -25,7 +25,7 @@
 %>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/product.css">
+    <link rel="stylesheet" href="/css/effect.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>상품 목록</title>
 </head>
@@ -40,7 +40,7 @@
         $('.hero-img-wrap img').attr('src', imgSrcs[random]);
     });
 
-    // 정렬 탭 클릭시 bold 클래스 추가
+    // 페이지 로드시 bold 클래스 추가
     document.addEventListener('DOMContentLoaded', function () {
         const navItems = document.querySelectorAll('.nav a');
         const BOLD_CLASSNAME = 'bold';
@@ -79,7 +79,7 @@
             <div class="row justify-content-between">
                 <div class="col-lg-5">
                     <div class="intro-excerpt">
-                        <h1>상품목록</h1>
+                        <h1 class="font-apply">상품목록</h1>
                     </div>
                 </div>
                 <div class="col-lg-7">
