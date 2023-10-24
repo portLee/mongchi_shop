@@ -47,7 +47,7 @@
                     <thead class="thead-dark">
                     <tr align="center">
                         <th>번호</th>
-                        <th>리뷰이미지</th>
+                        <th>리뷰 이미지</th>
                         <th>내용</th>
                         <th>별점</th>
                         <th>리뷰 작성일</th>

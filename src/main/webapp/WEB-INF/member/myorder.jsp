@@ -41,7 +41,7 @@
                             <th class="product-thumbnail" colspan="2">상품정보</th>
                             <th class="product-name">주문일자</th>
                             <th class="product-quantity">주문번호</th>
-                            <th class="product-quantity" style="width: 200px">주문금액(수량)</th>
+                            <th class="product-quantity" style="width: 200px">주문금액<br>(수량)</th>
                             <th class="product-quantity" style="width: 200px">주문상태</th>
                             <th class="product-quantity" style="width: 200px">비고</th>
                         </tr>

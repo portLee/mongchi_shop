@@ -127,6 +127,22 @@
             }
         });
 
+        p2.addEventListener("focusout", function () {
+            if (p1.value === "") {
+                p1.focus();
+                c1.style.color = "red"
+                c1.innerHTML = "비밀번호를 입력해 주세요";
+            } else if (p1.value !== p2.value) {
+                c1.style.color = "red"
+                c1.innerHTML = "비밀번호가 일치하지 않습니다!";
+                p1.value = "";
+                p2.value = "";
+            } else if (p1.value === p2.value) {
+                c1.style.color = "green";
+                c1.innerHTML = "비밀번호가 일치합니다!";
+            }
+        });
+
 
 
         const xhr = new XMLHttpRequest();

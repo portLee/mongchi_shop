@@ -75,3 +75,5 @@ public class MypageQnA extends HttpServlet {
         req.getRequestDispatcher("/WEB-INF/member/mypageQnA.jsp").forward(req, resp);
     }
 }
+
+

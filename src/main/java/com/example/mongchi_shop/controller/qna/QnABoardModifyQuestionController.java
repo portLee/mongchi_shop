@@ -57,6 +57,6 @@ public class QnABoardModifyQuestionController extends HttpServlet {
             log.info(e.getMessage());
             throw new ServletException("QnABoardModifyQuestionController POST error");
         }
-        resp.sendRedirect("/qnaBoards?pno="+pno);
+        resp.sendRedirect("/products/product?pno="+pno);
     }
 }
