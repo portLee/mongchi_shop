@@ -68,7 +68,7 @@
                 p1.addEventListener("focusout", function () {
                         const xhr = new XMLHttpRequest();
 
-                        xhr.open('GET', './passwordCheck.jsp?emailId=' + e1.value+"&password="+p1.value);
+                        xhr.open('GET', '../passwordCheck.jsp?emailId=' + e1.value+"&password="+p1.value);
                         xhr.send();
                         xhr.onreadystatechange = () => {
                                 if (xhr.readyState !== XMLHttpRequest.DONE) return;

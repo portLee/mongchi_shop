@@ -169,7 +169,7 @@
         emailId.addEventListener('keyup',function () {
             const emailIdval = emailId.value;
             const memberEmailCheck = document.querySelector('.memberEmailCheck'); //결과문자열
-            xhr.open('GET','./ajaxIdCheck.jsp?emailId='+emailIdval );
+            xhr.open('GET','../ajaxIdCheck.jsp?emailId='+emailIdval );
             xhr.send();
             xhr.onreadystatechange = () => {
                 if(xhr.readyState !== XMLHttpRequest.DONE) return;
