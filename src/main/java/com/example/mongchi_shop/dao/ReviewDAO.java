@@ -18,13 +18,14 @@ public class ReviewDAO {
     public boolean insertReview(ReviewVO reviewVO) throws SQLException {
         log.info("insertReview()...");
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
-        String sql = "INSERT INTO review (emailId, pno, rate, content, addDate, fileName) VALUES(?,?,?,?,now(),?)";
+        String sql = "INSERT INTO review (emailId, pno, rate, content, addDate, fileName, productName) VALUES(?,?,?,?,now(),?,?)";
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1,reviewVO.getEmailId());
         preparedStatement.setInt(2, reviewVO.getPno());
         preparedStatement.setInt(3, reviewVO.getRate());
         preparedStatement.setString(4,reviewVO.getContent());
         preparedStatement.setString(5, reviewVO.getFileName());
+        preparedStatement.setString(6,reviewVO.getProductName());
 
         return preparedStatement.executeUpdate() == 1;
     }
@@ -50,6 +51,7 @@ public class ReviewDAO {
                     .content(resultSet.getString("content"))
                     .addDate(resultSet.getString("addDate"))
                     .fileName(resultSet.getString("fileName"))
+                    .productName(resultSet.getString("productName"))
                     .build();
             reviewVOList.add(reviewVO);
         }
@@ -60,7 +62,7 @@ public class ReviewDAO {
         log.info("selectReview()...");
 
         List<ReviewVO> reviewVOList = new ArrayList<>();
-        String sql = "SELECT * FROM `review` WHERE `emailId` = ? ";
+        String sql = "SELECT * FROM `review` WHERE `emailId` = ? ORDER BY rno DESC";
 
         @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -74,6 +76,7 @@ public class ReviewDAO {
                     .content(resultSet.getString("content"))
                     .addDate(resultSet.getString("addDate"))
                     .fileName(resultSet.getString("fileName"))
+                    .productName(resultSet.getString("productName"))
                     .build();
             reviewVOList.add(reviewVO);
         }
@@ -101,6 +104,7 @@ public class ReviewDAO {
                     .content(resultSet.getString("content"))
                     .addDate(resultSet.getString("addDate"))
                     .fileName(resultSet.getString("fileName"))
+                    .productName(resultSet.getString("productName"))
                     .build();
         }
         return reviewVO;

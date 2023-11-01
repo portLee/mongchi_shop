@@ -18,4 +18,5 @@ public class ReviewDTO {
     private String content;
     private String addDate;
     private String fileName;
+    private String productName;
 }

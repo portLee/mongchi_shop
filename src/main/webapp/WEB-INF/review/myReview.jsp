@@ -1,14 +1,18 @@
 <%@ page import="com.example.mongchi_shop.dto.MemberDTO" %>
+<%@ page import="com.example.mongchi_shop.dto.OrderDTO" %>
+<%@ page import="java.util.List" %>
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
     MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginInfo");
     String emailId = null;
     if (memberDTO != null) {
         emailId = memberDTO.getEmailId();
     }
+
+    List<OrderDTO> orderDTOList = (List<OrderDTO>) request.getAttribute("orderDTOList");
 %>
 
 <html lang="ko">
@@ -23,7 +27,20 @@
         body {
             height: 1500px;
         }
+
+        .review-container .table {
+            width: 100%;
+            border: none; /* Remove table border */
+        }
+
+        /* Increase padding for better content area */
+        .review-container .table th,
+        .review-container .table td {
+            padding: 15px;
+        }
+
     </style>
+    <%-- 별점 style/ --%>
 </head>
 
 <body>
@@ -32,69 +49,79 @@
 
     <div class="container">
         <a class="navbar-brand">나의 리뷰 목록<span>.</span></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <jsp:include page="/WEB-INF/inc/mypageNavi.jsp" />
     </div>
 </nav>
 
 <!-- 주요 내용 섹션 -->
-<div class="container mt-4">
-    <jsp:include page="/WEB-INF/inc/mypageNavi.jsp" />
-    <div class="row">
-        <!-- 리뷰 목록 -->
-        <div class="col-xl-12 mx-5">
-            <br>
-            <div class="table-responsive">
-                <table class="table table-bordered">
-                    <thead class="thead-dark">
-                    <tr align="center">
-                        <th>번호</th>
-                        <th>리뷰 이미지</th>
-                        <th>내용</th>
-                        <th>별점</th>
-                        <th>리뷰 작성일</th>
-                        <th colspan="2">비고</th>
-                    </tr>
-                    </thead>
-                    <!-- 테이블 본문 -->
-                    <tbody align="center">
-                    <c:forEach var="myReview" items="${myreviewDTOList}" varStatus="status">
-                        <tr align="center" class="writer">
-                            <td style="font-size: 20px; vertical-align: middle;">${status.index + 1}</td>
-                            <td style="vertical-align: middle"><img src="${myReview.fileName}" style="width: 100px;"></td>
-                            <td style="width: 500px; vertical-align: middle;" >${myReview.content}</td>
-                            <td style="vertical-align: middle">
-                                <span class="star">
-                                    ★★★★★
-                                    <span style="width: ${myReview.rate * 10}%;">★★★★★</span>
-                                    <input type="range" value="${myReview.rate}" step="1" min="1" max="10">
-                                </span>
-                            </td>
-                            <td style="vertical-align: middle;">
-                                    ${myReview.addDate}
-                            </td>
-                            <td>
-                                <form action="/review/modify" method="get" class="buttons">
-                                    <input type="hidden" name="rno" value="${myReview.rno}">
-                                    <input type="hidden" name="pno" value="${myReview.pno}">
-                                    <button class="btn btn-warning btn-sm" style="background-color: #0f5132; border: #0f5132; margin-top: 30px" >수정</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="/review/remove" method="get" onsubmit="return confirmDelete()">
-                                    <input type="hidden" name="pno" value="${myReview.pno}">
-                                    <input type="hidden" name="rno" value="${myReview.rno}">
-                                    <button type="submit" class="btn btn-danger btn-sm"
-                                            style="background-color: #fa1b1b; border: #fa1b1b; margin-top: 30px" >삭제</button>
-                                </form>
-                            </td>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center"></div>
+        <div class="row">
+            <!-- 리뷰 목록 -->
+            <div class="col-md-12">
+                <h3 class="h5 mb-4 text-center"></h3>
+                <div>
+                    <table class="table myaccordion table-hover" id="accordion">
+                        <thead>
+                        <tr align="center">
+                            <th>번호</th>
+                            <th>상품이름</th>
+                            <th>리뷰이미지</th>
+                            <th>내용</th>
+                            <th>별점</th>
+                            <th>리뷰 작성일</th>
+                            <th colspan="2">비고</th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <!-- 테이블 본문 -->
+                        <c:forEach var="myReview" items="${myreviewDTOList}" varStatus="status">
+                            <c:set var="reviewDateStr" value="${myReview.addDate}" />
+                            <c:set var="reviewDateStrSplit" value="${fn:substringBefore(reviewDateStr,' ')}"/>
+                                <tbody align="center">
+                                    <tr align="center" class="writer">
+                                        <td style="font-size: 20px; vertical-align: middle;">${status.index + 1}</td>
+                                        <td style="font-size: 15px; vertical-align: middle;">${myReview.productName}</td>
+                                        <td style="vertical-align: middle"><img src="${myReview.fileName}" style="width: 100px;"></td>
+                                        <td style="width: 500px; vertical-align: middle;" >${myReview.content}</td>
+                                        <td style="vertical-align: middle">
+                                            <span class="star" style="vertical-align: middle">
+                                                ★★★★★
+                                                <span style="width: ${myReview.rate * 10}%; vertical-align: middle">★★★★★</span>
+                                                <input type="range" value="${myReview.rate}" step="1" min="1" max="10">
+                                            </span>
+                                        </td>
+                                        <td style="vertical-align: middle;" class="reviewDateStr"> ${reviewDateStrSplit}</td>
+                                        <td>
+                                            <form action="/review/modify" method="get" class="buttons">
+                                                <input type="hidden" name="rno" value="${myReview.rno}">
+                                                <input type="hidden" name="pno" value="${myReview.pno}">
+                                                <button class="btn btn-warning btn-sm" style="background-color: #0f5132; border: #0f5132; margin-top: 30px" >수정</button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <form action="/review/remove" method="get" onsubmit="return confirmDelete()">
+                                                <input type="hidden" name="pno" value="${myReview.pno}">
+                                                <input type="hidden" name="rno" value="${myReview.rno}">
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                        style="background-color: #fa1b1b; border: #fa1b1b; margin-top: 30px" >삭제</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                        </c:forEach>
+                    </table>
+                </div>
             </div>
+            <!-- 리뷰 목록/ -->
         </div>
-        <!-- 리뷰 목록/ -->
     </div>
-</div>
+</section>
 <!-- 주요 내용 섹션/ -->
 
 <jsp:include page="/WEB-INF/inc/footer.jsp" />
@@ -148,6 +175,24 @@
             }
         }
     });
+</script>
+
+<script>
+    // 리뷰 등록된 날짜 가져오기
+    let reviewDateStr = '<c:out value="${reviewDateStr}" />';
+    console.log('Original Date String:', reviewDateStr); // 디버깅 메시지
+
+    if (reviewDateStr) {
+        // 'YYYY-MM-DD HH:mm:ss' 형식의 문자열을 공백 문자로 split
+        let [datePart, timePart] = reviewDateStr.split(' ');
+
+        console.log('Date Part:', datePart);  // 날짜 부분
+        console.log('Time Part:', timePart);  // 시간 부분
+
+        if (timePart) {
+            // 시간 부분을 다루는 추가 로직을 여기에 추가할 수 있습니다.
+        }
+    }
 </script>
 </body>
 </html>

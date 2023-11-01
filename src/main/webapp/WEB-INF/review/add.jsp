@@ -41,7 +41,7 @@
     <div class="card review-form">
         <div class="card-body"><br>
             <h2 class="card-title review-header">리뷰 작성</h2>
-            <form id="reviewForm" action="/review/add?pno=<%= request.getParameter("pno") %>" method="post" enctype="multipart/form-data">
+            <form id="reviewForm" action="/review/add" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                             <span class="star">
                                   ★★★★★
@@ -50,7 +50,8 @@
                             </span><br><br>
                     <textarea class="form-control" name="content" rows="3" placeholder="리뷰를 작성하세요"></textarea>
                 </div>
-                <input type="hidden" name="rate">
+                <input type="hidden" name="pno" value="<%= request.getParameter("pno") %>">
+                <input type="hidden" name="productName" value="<%=request.getParameter("productName")%>">
                 <input type="file" name="fileName" class="form-control" style="height: 38px"><br>
                 <input type="hidden" name="logoFile">
                 <div class="form-group">

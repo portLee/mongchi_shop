@@ -11,6 +11,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/product/edit.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/product" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/product/list.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/product" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/review/list.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/review" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/review/myReview.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/review" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/ajaxIdCheck.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>

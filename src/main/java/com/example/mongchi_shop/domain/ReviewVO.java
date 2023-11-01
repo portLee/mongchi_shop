@@ -16,4 +16,5 @@ public class ReviewVO {
     private String content;
     private String addDate;
     private String fileName;
+    private String productName;
 }

@@ -75,7 +75,7 @@
                                     <h2 class="h5 text-black"><%= order.getOrderStatus() %></h2>
                                 </td>
                                 <td>
-                                    <a href="/review/add?pno=<%= itemDTO.getPno() %>">리뷰작성</a>
+                                    <a href="/review/add?pno=<%= itemDTO.getPno() %>&productName=<%=itemDTO.getProductName()%> ">리뷰작성</a>
                                 </td>
                             </tr>
                             <%

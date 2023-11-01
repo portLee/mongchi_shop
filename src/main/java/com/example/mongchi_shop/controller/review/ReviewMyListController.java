@@ -36,6 +36,7 @@ public class ReviewMyListController extends HttpServlet {
         List<ReviewDTO> myreviewDTOList = reviewService.getReviewByEmailId(emailId);
 
         req.setAttribute("myreviewDTOList", myreviewDTOList);
+        log.info("여기까지 됨");
         req.getRequestDispatcher("/WEB-INF/review/myReview.jsp").forward(req,resp);
 
         } catch (Exception ex) {

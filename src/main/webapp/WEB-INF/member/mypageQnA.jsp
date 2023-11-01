@@ -79,17 +79,12 @@
 
     <div class="container">
         <a class="navbar-brand">마이 페이지<span>.</span></a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <jsp:include page="/WEB-INF/inc/mypageNavi.jsp" />
     </div>
 </nav>
 
-<section class="ftco-section">
+<section class="untree_co-section before-footer-section">
     <div class="container">
+        <jsp:include page="/WEB-INF/inc/mypageNavi.jsp" />
         <div class="row justify-content-center"></div>
         <div class="row">
             <div class="col-md-12">

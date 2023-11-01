@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
     MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginInfo");
     String emailId = null;
@@ -120,11 +121,15 @@
                             <tbody>
                             <!-- 리뷰 목록 반복문 -->
                             <c:forEach var="reviewVO" items="${reviewVOList}" varStatus="status">
+                                <c:set var="reviewDateStr" value="${reviewVO.addDate}" />
+                                <c:set var="reviewDateStrSplit" value="${fn:substringBefore(reviewDateStr,' ')}"/>
+                                <c:set var="emailIdStr" value="${reviewVO.emailId}" />
+                                <c:set var="emailIdStrSplit" value="${fn:substringBefore(emailIdStr,'@')}"/>
                                 <tr class="content" align="center">
-                                    <td>${status.index + 1}</td>
-                                    <td><img src="${reviewVO.fileName}" style="max-width: 100px; max-height: 100px;" alt="상품 이미지"></td>
-                                    <td>${reviewVO.content}</td>
-                                    <td>${reviewVO.emailId}</td>
+                                    <td style="font-size: 20px; vertical-align: middle;">${status.index + 1}</td>
+                                    <td style="vertical-align: middle;"><img src="${reviewVO.fileName}" style="max-width: 100px; max-height: 100px;" alt="상품 이미지"></td>
+                                    <td style="vertical-align: middle;">${reviewVO.content}</td>
+                                    <td style="vertical-align: middle;">${emailIdStrSplit}</td>
                                     <td>
                                         <span class="star">
                                             ★★★★★
@@ -132,7 +137,7 @@
                                             <input type="range" value="${reviewVO.rate}" step="1" min="1" max="10" disabled>
                                         </span>
                                     </td>
-                                    <td>${reviewVO.addDate}</td>
+                                    <td style="vertical-align: middle;">${reviewDateStrSplit}</td>
                                 </tr>
                             </c:forEach>
                             <!-- 리뷰 목록 반복문 끝 -->
