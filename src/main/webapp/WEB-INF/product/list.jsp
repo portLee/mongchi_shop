@@ -95,6 +95,11 @@
 
     <div class="untree_co-section product-section before-footer-section">
         <div class="container">
+            <div class="float-end">
+                <a href="/product/register">
+                    <button class="btn btn-primary">상품등록</button>
+                </a>
+            </div>
             <nav class="row mb-5">
                 <ul class="nav justify-content-center">
                     <li class="nav-item">

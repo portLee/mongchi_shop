@@ -84,6 +84,9 @@
                         <button id="btn-Qna" class="btn btn-primary">상품문의</button>
                         <button id="btn-list" class="btn btn-black">상품목록</button>
                     </div>
+                    <div class="mt-3">
+                        <button id="btn-modify" class="btn btn-danger">상품수정</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -134,7 +137,7 @@
                                         <span class="star">
                                             ★★★★★
                                             <span style="width: ${reviewVO.rate * 10}%;">★★★★★</span>
-                                            <input type="range" value="${reviewVO.rate}" step="1" min="1" max="10" disabled>
+                                            <input type="range" name="rate" value="${reviewVO.rate}" step="1" min="1" max="10" disabled>
                                         </span>
                                     </td>
                                     <td style="vertical-align: middle;">${reviewDateStrSplit}</td>
@@ -200,58 +203,13 @@
           btnList.addEventListener('click', function () {
               location.href = '/products';
           });
+
+          // 상품수정
+          const btnModify = document.querySelector('#btn-modify');
+          btnModify.addEventListener('click', function () {
+              location.href = '/product/modify?pno=${productDTO.pno}';
+          });
       });
   </script>
-
-    <%-- 리뷰관련 script --%>
-    <script>
-        // 별점 관련 이벤트
-        document.addEventListener('DOMContentLoaded', function () {
-            const star_input = document.querySelector('.star > input.rate');
-            const star_span = document.querySelector('.star > .rate');
-
-            /* console.log(star_input);
-             console.log(star_span);*/
-            // 별점 드래그 할 때
-            star_input.addEventListener('input', () => {
-                console.log(star_input.value);
-                let rate = (star_input.value * 10);
-                star_span.style.width = rate + "%";
-
-                document.querySelector("input[name=rate]").value = rate / 10;
-                console.log("rate :" + document.querySelector("input[name=rate]").value);
-                console.log(rate);
-            });
-        });
-
-        // 리뷰 작성 폼 제출 전에 별점과 리뷰가 입력되었는지 확인
-        document.querySelector('#reviewForm').addEventListener('submit', function (event) {
-            const selectedRate = document.querySelector("input[name=rate]").value;
-            const selectedText = document.querySelector("textarea[name=content]").value;
-
-            console.log("Selected Rate:", selectedRate);
-            console.log("Selected Text:", selectedText);
-
-            // 별점을 입력하지 않았을 경우
-            if (selectedRate === "") {
-                alert("별점을 선택해주세요");
-                event.preventDefault(); // 폼 제출을 막음
-                return; // 다음 if절이 시행되지 않도록 return
-            }
-
-            // 리뷰를 작성하지 않았을 경우
-            if (selectedText === "") {
-                alert("리뷰를 작성해주세요")
-                event.preventDefault(); // 폼 제출을 막음
-            }
-        });
-
-        // 삭제 여부를 확인하는 JavaScript 함수
-        function confirmDelete() {
-            let result = window.confirm("정말 삭제하시겠습니까?");
-            return result;
-        }
-    </script>
-    <%-- 리뷰관련 script/ --%>
 </body>
 </html>
