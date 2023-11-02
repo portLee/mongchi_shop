@@ -4,6 +4,7 @@ import com.example.mongchi_shop.service.ProductService;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +16,8 @@ import java.io.IOException;
 public class ProductRemoveController extends HttpServlet {
     private final ProductService productService = ProductService.INSTANCE;
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.info("/product/remove(GET)...");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("/product/remove(POST)...");
         int pno = Integer.parseInt(req.getParameter("pno"));
         log.info("pno: " + pno);
 

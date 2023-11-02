@@ -16,7 +16,7 @@ import java.io.IOException;
 
 @Log4j2
 @WebServlet("/product/modify")
-@MultipartConfig(maxFileSize = 5 * 1024 * 1024, location = "c:/upload")
+@MultipartConfig(maxFileSize = 10 * 1024 * 1024, location = "c:/upload/product")
 public class ProductModifyController extends HttpServlet {
     private final ProductService productService = ProductService.INSTANCE;
 
@@ -27,14 +27,14 @@ public class ProductModifyController extends HttpServlet {
         int pno = Integer.parseInt(req.getParameter("pno"));
         log.info("pno: " + pno);
 
-//        try {
-//            ProductDTO productDTO = productService.getProductByPno(pno);
-//            log.info("productDTO: " + productDTO);
-//            req.setAttribute("productDTO", productDTO);
-//        } catch (Exception e) {
-//            log.error(e.getMessage());
-//            throw new ServletException("modify error");
-//        }
+        try {
+            ProductDTO productDTO = productService.getProductByPno(pno);
+            log.info("productDTO: " + productDTO);
+            req.setAttribute("productDTO", productDTO);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            throw new ServletException("modify error");
+        }
         req.getRequestDispatcher("/WEB-INF/product/modify.jsp").forward(req, resp);
     }
 
@@ -44,19 +44,21 @@ public class ProductModifyController extends HttpServlet {
 
         ProductDTO productDTO = new ProductDTO();
         try {
+            BeanUtils.populate(productDTO, req.getParameterMap());
+            log.info("productDTO: " + productDTO);
+
             // 이미지 파일 저장을 위해 request로 부터 Part 객체 참조.
             Part part = req.getPart("file");
             String fileName = productService.getFileName(part);
             log.info("fileName: " + fileName);
+
             if (fileName != null && !fileName.isEmpty()) {
                 part.write(fileName); // 파일 이름이 있으면 파일 저장
+                productDTO.setFileName("/upload/product" + fileName); // 이미지 파일 이름을 ProductDTO 객체에 저장.
             }
-
-            BeanUtils.populate(productDTO, req.getParameterMap());
-            log.info("productDTO: " + productDTO);
-
-            // 이미지 파일 이름을 News 객체에 저장.
-            productDTO.setFileName("/upload/product" + fileName);
+            else {
+                productDTO.setFileName(req.getParameter("oriFile"));
+            }
 
             productService.modifyProduct(productDTO);
         } catch (Exception e) {

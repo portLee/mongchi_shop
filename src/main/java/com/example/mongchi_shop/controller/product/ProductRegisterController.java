@@ -51,7 +51,7 @@ public class ProductRegisterController extends HttpServlet {
             throw new ServletException("register error");
         }
 
-        resp.sendRedirect("/admin/products");
+        resp.sendRedirect("/products");
     }
 
 }

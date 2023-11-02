@@ -46,7 +46,7 @@
                             <span class="star">
                                   ★★★★★
                                   <span class="rate">★★★★★</span>
-                                  <input class="rate" type="range" value="1" step="1" min="1" max="10">
+                                  <input class="rate" name="rate" type="range" value="1" step="1" min="1" max="10">
                             </span><br><br>
                     <textarea class="form-control" name="content" rows="3" placeholder="리뷰를 작성하세요"></textarea>
                 </div>

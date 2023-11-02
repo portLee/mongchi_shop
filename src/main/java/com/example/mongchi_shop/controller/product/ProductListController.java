@@ -1,5 +1,6 @@
 package com.example.mongchi_shop.controller.product;
 
+import com.example.mongchi_shop.dto.MemberDTO;
 import com.example.mongchi_shop.dto.ProductDTO;
 import com.example.mongchi_shop.service.ProductService;
 import lombok.extern.log4j.Log4j2;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Log4j2
@@ -58,11 +60,25 @@ public class ProductListController extends HttpServlet {
                 totalPage = totalPage + 1;
             }
 
+            HttpSession session = req.getSession();
+            MemberDTO memberDTO = null;
+            String role = "member";
+
+            if (session.getAttribute("loginInfo") != null) {
+                memberDTO = (MemberDTO) session.getAttribute("loginInfo");
+
+                // 회원 역할 가져오기
+                if(!memberDTO.getRole().isEmpty()) {
+                    role = memberDTO.getRole();
+                }
+            }
+
             req.setAttribute("currentPage", currentPage);
             req.setAttribute("totalPage", totalPage);
             req.setAttribute("sort", sort);
             req.setAttribute("option", option);
             req.setAttribute("productDTOList", productDTOList);
+            req.setAttribute("role", role);
             req.getRequestDispatcher("/WEB-INF/product/list.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error(e.getMessage());

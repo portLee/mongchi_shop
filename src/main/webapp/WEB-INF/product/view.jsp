@@ -84,9 +84,11 @@
                         <button id="btn-Qna" class="btn btn-primary">상품문의</button>
                         <button id="btn-list" class="btn btn-black">상품목록</button>
                     </div>
-                    <div class="mt-3">
-                        <button id="btn-modify" class="btn btn-danger">상품수정</button>
-                    </div>
+                    <c:if test="${role eq 'product'}">
+                        <div class="mt-3">
+                            <button id="btn-modify" class="btn btn-danger">상품수정</button>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </div>

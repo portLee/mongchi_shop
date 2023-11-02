@@ -1,6 +1,7 @@
 package com.example.mongchi_shop.controller.product;
 
 import com.example.mongchi_shop.domain.ReviewVO;
+import com.example.mongchi_shop.dto.MemberDTO;
 import com.example.mongchi_shop.dto.ProductDTO;
 import com.example.mongchi_shop.service.ProductService;
 import com.example.mongchi_shop.service.QnABoardService;
@@ -12,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Log4j2
@@ -24,6 +26,9 @@ public class ProductViewController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
         log.info("/products/product(GET)...");
 
+        HttpSession session = req.getSession();
+        MemberDTO memberDTO = null;
+        String role = "member";
         int pno = Integer.parseInt(req.getParameter("pno"));
         log.info("pno: " + pno);
 
@@ -36,6 +41,16 @@ public class ProductViewController extends HttpServlet {
             log.info("productDTO: " + productDTO);
             log.info("reviewVOList: " + reviewVOList);
 
+            if (session.getAttribute("loginInfo") != null) {
+                memberDTO = (MemberDTO) session.getAttribute("loginInfo");
+
+                // 회원 역할 가져오기
+                if(!memberDTO.getRole().isEmpty()) {
+                    role = memberDTO.getRole();
+                }
+            }
+
+            req.setAttribute("role", role);
             req.setAttribute("productDTO", productDTO);
             req.setAttribute("reviewVOList", reviewVOList);
             req.getRequestDispatcher("/WEB-INF/product/view.jsp").forward(req, resp);
