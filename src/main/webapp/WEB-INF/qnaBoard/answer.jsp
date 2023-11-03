@@ -45,7 +45,7 @@
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="text-black">이메일</label>
-                                <input type="text" name="emailId" class="form-control" value="<%=sessionEmailId%>" readonly>
+                                <input type="text" name="emailId" class="form-control" value="${qnABoardDTO.emailId}" readonly>
                             </div>
                         </div>
                     </div>

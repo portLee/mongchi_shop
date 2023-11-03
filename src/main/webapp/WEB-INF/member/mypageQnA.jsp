@@ -75,12 +75,11 @@
 <body>
 <jsp:include page="/WEB-INF/inc/menu.jsp"/>
 
-<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
-
+<div class="hero">
     <div class="container">
-        <a class="navbar-brand">마이 페이지<span>.</span></a>
+        <h1 class="font-apply"><span class="d-block">QnA</span></h1>
     </div>
-</nav>
+</div>
 
 <section class="untree_co-section before-footer-section">
     <div class="container">

@@ -43,15 +43,17 @@
             <h2 class="card-title review-header">리뷰 작성</h2>
             <form id="reviewForm" action="/review/add" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                            <span class="star">
-                                  ★★★★★
+                    <span class="star">
+                        ★★★★★
                                   <span class="rate">★★★★★</span>
                                   <input class="rate" name="rate" type="range" value="1" step="1" min="1" max="10">
                             </span><br><br>
+                    <div class="float-start mb-md-5">
+                        <input type="text" name="productName" class="form-control" value="<%=request.getParameter("productName")%>" readonly>
+                    </div>
                     <textarea class="form-control" name="content" rows="3" placeholder="리뷰를 작성하세요"></textarea>
                 </div>
                 <input type="hidden" name="pno" value="<%= request.getParameter("pno") %>">
-                <input type="hidden" name="productName" value="<%=request.getParameter("productName")%>">
                 <input type="file" name="fileName" class="form-control" style="height: 38px"><br>
                 <input type="hidden" name="logoFile">
                 <div class="form-group">

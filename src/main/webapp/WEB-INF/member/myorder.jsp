@@ -20,11 +20,11 @@
 
 <body>
 <jsp:include page="/WEB-INF/inc/menu.jsp"/>
-<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+<div class="hero">
     <div class="container">
-        <a class="navbar-brand">주문내역<span>.</span></a>
+        <h1 class="font-apply"><span class="d-block">주문내역</span></h1>
     </div>
-</nav>
+</div>
 
 
 <div class="untree_co-section before-footer-section">

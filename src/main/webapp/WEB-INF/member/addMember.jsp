@@ -14,60 +14,65 @@
     </div>
 </div>
 
-<div class="center">
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center"></div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="h5 mb-4 text-center"></h3>
+<div class="container">
+    <div class="row justify-content-center"></div>
+    <div class="row">
+        <h3 class="h5 mb-4 text-center"></h3>
+        <form action="/addMember" method="post" class="d-flex bd-highlight">
+            <div class="col-md-6 p-2 bd-highlight">
+                <div class="form-group" >
+                    <label>이메일</label>
+                    <input type="email" name="emailId" class="form-control" >
+                    <span class="memberEmailCheck"></span>
 
-                    <form action="/addMember" method="post">
-                        <div class="form-group">
-                            <label>이메일</label>
-                            <input type="email" name="emailId" class="form-control">
-                            <span class="memberEmailCheck"></span>
-                        </div>
-                        <div class="form-group">
-                            <label>비밀번호</label>
-                            <input type="password" name="password" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>비밀번호 확인</label>
-                            <input type="password" name="password2" class="form-control" required>
-                            <span class="passCheck"></span>
-                        </div>
-                        <div class="form-group">
-                            <label>이름</label>
-                            <input type="text" name="memberName" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>전화번호</label>
-                            <input type="text" name="phone" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>생일</label>
-                            <input type="date" name="birthday" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="zipCode">우편번호</label>
-                            <input type="text" name="zipCode" id="zipCode" class="form-control" placeholder="우편번호">
-                            <input type="button" name="findCode" class="btn btn-primary" value="우편번호 찾기"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="address01">번지수/도로명</label>
-                            <input type="text" name="address01" id="address01" class="form-control" placeholder="주소">
-                        </div>
-                        <div class="form-group">
-                            <label for="address02">상세주소</label>
-                            <input type="text" name="address02" id="address02" class="form-control" placeholder="상세주소">
-                        </div>
-                        <button type="submit" class="btn btn-primary">회원가입</button>
-                    </form>
                 </div>
+                <div class="form-group">
+                    <label>비번</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>비번확인</label>
+                    <input type="password" name="password2" class="form-control" required>
+                    <span class="passCheck"></span>
+                </div>
+                <div class="form-group">
+                    <label>이름</label>
+                    <input type="text" name="memberName" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label>생일</label>
+                    <input type="date" name="birthday" class="form-control">
+                </div>
+
             </div>
-        </div>
-    </section>
+            <div class="col-md-6 p-2 bd-highlight">
+
+                <div class="form-group">
+                    <label>전화번호</label>
+                    <input type="text" name="phone" class="form-control" >
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label for="zipCode">우편번호</label>
+                    <input type="text" name="zipCode" id="zipCode" class="form-control" placeholder="우편번호" readonly>
+                    <input type="button" name="findCode" class="btn btn-primary" STYLE="margin-top: 10PX" value="우편번호 찾기"/>
+                </div>
+                <div class="form-group">
+                    <label for="address01">번지수/도로명</label>
+                    <input type="text" name="address01" id="address01" class="form-control" placeholder="주소" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="address02">상세주소</label>
+                    <input type="text" name="address02" id="address02" class="form-control" placeholder="상세주소">
+                </div>
+                <button type="submit" class="btn btn-primary">회원가입</button>
+            </div>
+
+        </form>
+    </div>
 </div>
 
 <jsp:include page="/WEB-INF/inc/footer.jsp"/>

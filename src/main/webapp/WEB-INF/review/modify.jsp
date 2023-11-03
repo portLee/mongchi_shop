@@ -62,6 +62,9 @@
             <div class="float-start">
                 <h2><label for="modifyContent"><b>리뷰내용</b></label></h2>
             </div>
+            <div class="mb-3">
+                <input type="text" name="productName" class="form-control" value="${reviewDTO.productName}" readonly>
+            </div>
             <input type="hidden" name="addDate" value="${reviewDTO.addDate}">
             <input type="text" class="form-control" id="modifyContent" name="content" rows="3"  value="${reviewDTO.content}" placeholder="내용을 작성하세요">
         </div>
